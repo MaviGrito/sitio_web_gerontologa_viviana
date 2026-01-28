@@ -19,11 +19,10 @@ export const SITE_CONFIG: SiteConfig = {
   },
   social: {
     instagram: siteConfigData.social.instagram,
-    facebook: siteConfigData.social.facebook || '',
     linkedin: siteConfigData.social.linkedin
   },
   seo: {
-    keywords: ['gerontóloga', 'geriatría', 'adulto mayor', 'envejecimiento activo', 'consulta gerontológica', 'Viviana Tonguino'],
+    keywords: ['gerontóloga', 'gerontología', 'adulto mayor', 'envejecimiento activo', 'consulta gerontológica', 'Viviana Tonguino'],
     ogImage: '/images/og-image.jpg'
   }
 };
@@ -49,12 +48,6 @@ export const SOCIAL_LINKS = [
     url: SITE_CONFIG.social.instagram || '',
     icon: 'instagram',
     label: 'Síguenos en Instagram'
-  },
-  {
-    platform: 'Facebook',
-    url: SITE_CONFIG.social.facebook || '',
-    icon: 'facebook',
-    label: 'Síguenos en Facebook'
   },
   {
     platform: 'LinkedIn',

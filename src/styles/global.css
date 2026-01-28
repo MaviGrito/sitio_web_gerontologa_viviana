@@ -1,0 +1,150 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=More+Sugar&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+html {
+  font-family: 'More Sugar', sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  line-height: 1.6;
+  color: #136038; /* primary-dark */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid #03A63C;
+  outline-offset: 2px;
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom utility classes for the design system */
+@layer utilities {
+  .text-primary-dark {
+    color: #136038;
+  }
+
+  .text-primary {
+    color: #136038;
+  }
+
+  .text-primary-main {
+    color: #03A63C;
+  }
+
+  .text-accent {
+    color: #03A63C;
+  }
+
+  .text-primary-light {
+    color: #99EBB9;
+  }
+
+  .text-light {
+    color: #99EBB9;
+  }
+
+  .bg-primary-dark {
+    background-color: #136038;
+  }
+
+  .bg-primary {
+    background-color: #136038;
+  }
+
+  .bg-primary-main {
+    background-color: #03A63C;
+  }
+
+  .bg-accent {
+    background-color: #03A63C;
+  }
+
+  .bg-primary-light {
+    background-color: #99EBB9;
+  }
+
+  .bg-light {
+    background-color: #99EBB9;
+  }
+
+  .border-primary {
+    border-color: #136038;
+  }
+
+  .border-accent {
+    border-color: #03A63C;
+  }
+
+  .border-light {
+    border-color: #99EBB9;
+  }
+
+  /* Generous spacing utilities */
+  .spacing-comfortable {
+    padding: 2rem;
+  }
+
+  .spacing-generous {
+    padding: 3rem;
+  }
+
+  /* Font family utilities */
+  .font-heading {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .font-body {
+    font-family: 'More Sugar', sans-serif;
+  }
+
+  /* Professional shadows */
+  .shadow-professional {
+    box-shadow: 0 4px 6px -1px rgba(19, 96, 56, 0.1), 0 2px 4px -1px rgba(19, 96, 56, 0.06);
+  }
+
+  .shadow-professional-lg {
+    box-shadow: 0 10px 15px -3px rgba(19, 96, 56, 0.1), 0 4px 6px -2px rgba(19, 96, 56, 0.05);
+  }
+}
+
+/* Component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-main text-white font-heading px-6 py-3 rounded-lg transition-all duration-300 hover:bg-primary-dark focus:ring-2 focus:ring-primary-light focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-primary-light text-primary-dark font-heading px-6 py-3 rounded-lg transition-all duration-300 hover:bg-primary-main hover:text-white focus:ring-2 focus:ring-primary-main focus:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary-main text-primary-main font-heading px-6 py-3 rounded-lg transition-all duration-300 hover:bg-primary-main hover:text-white focus:ring-2 focus:ring-primary-main focus:ring-offset-2;
+  }
+
+  .card-professional {
+    @apply bg-white rounded-xl shadow-professional p-6 transition-all duration-300 hover:shadow-professional-lg;
+  }
+}

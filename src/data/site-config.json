@@ -1,0 +1,22 @@
+{
+  "title": "Dr. [Name] - Especialista en Geriatría",
+  "description": "Atención médica especializada para adultos mayores. Consultas geriátricas, evaluaciones integrales y cuidado personalizado para un envejecimiento saludable.",
+  "url": "https://your-gerontologist-site.netlify.app",
+  "author": {
+    "name": "Dr. [Name]",
+    "title": "Médico Geriatra",
+    "bio": "Especialista en medicina geriátrica con más de 10 años de experiencia en el cuidado integral de adultos mayores. Comprometido con promover un envejecimiento saludable y mejorar la calidad de vida de mis pacientes.",
+    "photo": "/images/doctor-profile.jpg"
+  },
+  "contact": {
+    "email": "contacto@ejemplo.com",
+    "phone": "+1234567890",
+    "whatsapp": "+1234567890",
+    "address": "Dirección de la consulta, Ciudad, País"
+  },
+  "social": {
+    "instagram": "https://instagram.com/tu-usuario",
+    "facebook": "https://facebook.com/tu-pagina",
+    "linkedin": "https://linkedin.com/in/tu-perfil"
+  }
+}

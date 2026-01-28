@@ -1,0 +1,137 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Enable local development mode (comment out for production)
+# local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+# Site URL for preview links
+site_url: https://your-gerontologist-site.netlify.app
+display_url: https://your-gerontologist-site.netlify.app
+
+# Logo for the CMS interface
+logo_url: /images/logo.svg
+
+# Locale settings
+locale: 'es'
+
+# Enable editorial workflow (draft/review/ready)
+publish_mode: editorial_workflow
+
+collections:
+  - name: "blog"
+    label: "Publicaciones"
+    label_singular: "Publicación"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "recursos/{{slug}}"
+    fields:
+      - {
+          label: "Título", 
+          name: "title", 
+          widget: "string",
+          hint: "Título principal del artículo (máximo 60 caracteres para SEO)"
+        }
+      - {
+          label: "Descripción", 
+          name: "description", 
+          widget: "text",
+          hint: "Descripción breve para SEO y redes sociales (máximo 160 caracteres)"
+        }
+      - {
+          label: "Fecha de Publicación", 
+          name: "publishDate", 
+          widget: "datetime",
+          date_format: "YYYY-MM-DD",
+          time_format: "HH:mm",
+          format: "YYYY-MM-DD"
+        }
+      - {
+          label: "Imagen Destacada", 
+          name: "featuredImage", 
+          widget: "image",
+          hint: "Imagen principal del artículo (recomendado: 1200x630px)"
+        }
+      - {
+          label: "Categoría", 
+          name: "category", 
+          widget: "select", 
+          options: [
+            {label: "Geriatría", value: "geriatria"},
+            {label: "Nutrición", value: "nutricion"},
+            {label: "Ejercicio", value: "ejercicio"},
+            {label: "Salud Mental", value: "salud-mental"}
+          ]
+        }
+      - {
+          label: "Etiquetas", 
+          name: "tags", 
+          widget: "list",
+          required: false,
+          hint: "Palabras clave relacionadas con el artículo"
+        }
+      - {
+          label: "Autor", 
+          name: "author", 
+          widget: "string", 
+          default: "Dr. [Name]"
+        }
+      - {
+          label: "Borrador", 
+          name: "draft", 
+          widget: "boolean", 
+          default: false,
+          hint: "Marcar como borrador para no publicar"
+        }
+      - {
+          label: "Extracto", 
+          name: "excerpt", 
+          widget: "text",
+          required: false,
+          hint: "Resumen breve que aparecerá en las tarjetas de blog"
+        }
+      - {
+          label: "Contenido", 
+          name: "body", 
+          widget: "markdown",
+          hint: "Contenido principal del artículo en formato Markdown"
+        }
+
+  # Configuration collection for site settings
+  - name: "config"
+    label: "Configuración del Sitio"
+    files:
+      - label: "Información General"
+        name: "general"
+        file: "src/data/site-config.json"
+        fields:
+          - {label: "Título del Sitio", name: "title", widget: "string"}
+          - {label: "Descripción", name: "description", widget: "text"}
+          - {label: "URL del Sitio", name: "url", widget: "string"}
+          - label: "Autor"
+            name: "author"
+            widget: "object"
+            fields:
+              - {label: "Nombre", name: "name", widget: "string"}
+              - {label: "Título Profesional", name: "title", widget: "string"}
+              - {label: "Biografía", name: "bio", widget: "text"}
+              - {label: "Foto", name: "photo", widget: "image"}
+          - label: "Contacto"
+            name: "contact"
+            widget: "object"
+            fields:
+              - {label: "Email", name: "email", widget: "string"}
+              - {label: "Teléfono", name: "phone", widget: "string"}
+              - {label: "WhatsApp", name: "whatsapp", widget: "string"}
+              - {label: "Dirección", name: "address", widget: "text"}
+          - label: "Redes Sociales"
+            name: "social"
+            widget: "object"
+            fields:
+              - {label: "Instagram", name: "instagram", widget: "string", required: false}
+              - {label: "Facebook", name: "facebook", widget: "string", required: false}
+              - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}

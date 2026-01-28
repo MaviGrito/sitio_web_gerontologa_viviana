@@ -1,0 +1,282 @@
+---
+import Navigation from './Navigation.astro';
+import { SITE_CONFIG } from '../../utils/constants';
+
+export interface Props {
+  currentPath?: string;
+  transparent?: boolean;
+  fixed?: boolean;
+}
+
+const { 
+  currentPath = Astro.url.pathname,
+  transparent = false,
+  fixed = false 
+} = Astro.props;
+
+// Generate logo text from site config
+const logoText = SITE_CONFIG.author.name;
+const logoSubtext = SITE_CONFIG.author.title;
+---
+
+<header 
+  class={`
+    header w-full z-40 transition-all duration-300
+    ${fixed ? 'fixed top-0 left-0 right-0' : 'relative'}
+    ${transparent 
+      ? 'bg-transparent' 
+      : 'bg-white shadow-sm border-b border-light/20'
+    }
+  `}
+  role="banner"
+>
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
+      
+      <!-- Logo Section -->
+      <div class="logo-section flex-shrink-0">
+        <a 
+          href="/" 
+          class="logo-link flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded-md p-1"
+          aria-label={`Ir al inicio - ${logoText}, ${logoSubtext}`}
+        >
+          <!-- Logo Icon/Image -->
+          <div class="logo-icon flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 bg-primary rounded-full group-hover:bg-accent transition-colors duration-200">
+            <!-- Medical/Geriatric Icon -->
+            <svg 
+              class="w-6 h-6 lg:w-7 lg:h-7 text-white" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24" 
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+          </div>
+          
+          <!-- Logo Text -->
+          <div class="logo-text hidden sm:block">
+            <div class="logo-name text-lg lg:text-xl font-heading font-extrabold text-primary-dark group-hover:text-accent transition-colors duration-200">
+              {logoText}
+            </div>
+            <div class="logo-subtitle text-sm lg:text-base font-body text-primary/80 group-hover:text-accent/80 transition-colors duration-200">
+              {logoSubtext}
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Section -->
+      <div class="navigation-section">
+        <Navigation currentPath={currentPath} />
+      </div>
+
+      <!-- Contact CTA (Desktop only) -->
+      <div class="cta-section hidden lg:flex items-center space-x-4">
+        <!-- WhatsApp Contact Button -->
+        <a
+          href={`https://wa.me/${SITE_CONFIG.contact.whatsapp.replace(/[^0-9]/g, '')}?text=Hola, me gustaría agendar una consulta`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="whatsapp-cta inline-flex items-center px-4 py-2 bg-accent text-white font-body font-medium rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 shadow-sm hover:shadow-md"
+          aria-label="Contactar por WhatsApp para agendar consulta"
+        >
+          <!-- WhatsApp Icon -->
+          <svg 
+            class="w-4 h-4 mr-2" 
+            fill="currentColor" 
+            viewBox="0 0 24 24" 
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+          </svg>
+          Consulta
+        </a>
+
+        <!-- Phone Contact Button -->
+        <a
+          href={`tel:${SITE_CONFIG.contact.phone}`}
+          class="phone-cta inline-flex items-center px-3 py-2 border border-primary text-primary-dark font-body font-medium rounded-md hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200"
+          aria-label={`Llamar al ${SITE_CONFIG.contact.phone}`}
+        >
+          <!-- Phone Icon -->
+          <svg 
+            class="w-4 h-4 mr-2" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24" 
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path 
+              stroke-linecap="round" 
+              stroke-linejoin="round" 
+              stroke-width="2" 
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+            />
+          </svg>
+          <span class="hidden xl:inline">Llamar</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Contact Bar (visible only on mobile when menu is closed) -->
+  <div class="mobile-contact-bar lg:hidden bg-light/10 border-t border-light/20 px-4 py-2">
+    <div class="flex items-center justify-center space-x-4">
+      <!-- Mobile WhatsApp Button -->
+      <a
+        href={`https://wa.me/${SITE_CONFIG.contact.whatsapp.replace(/[^0-9]/g, '')}?text=Hola, me gustaría agendar una consulta`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mobile-whatsapp-cta flex-1 inline-flex items-center justify-center px-4 py-2 bg-accent text-white font-body font-medium rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-200 text-sm"
+        aria-label="Contactar por WhatsApp"
+      >
+        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+        </svg>
+        WhatsApp
+      </a>
+
+      <!-- Mobile Phone Button -->
+      <a
+        href={`tel:${SITE_CONFIG.contact.phone}`}
+        class="mobile-phone-cta flex-1 inline-flex items-center justify-center px-4 py-2 border border-primary text-primary-dark font-body font-medium rounded-md hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200 text-sm"
+        aria-label="Llamar"
+      >
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+        </svg>
+        Llamar
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Header styles */
+  .header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* Logo hover effects */
+  .logo-link:hover .logo-icon {
+    transform: scale(1.05);
+  }
+
+  .logo-link:focus .logo-icon {
+    transform: scale(1.05);
+  }
+
+  /* CTA button hover effects */
+  .whatsapp-cta:hover,
+  .mobile-whatsapp-cta:hover {
+    transform: translateY(-1px);
+  }
+
+  .phone-cta:hover,
+  .mobile-phone-cta:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Responsive logo text */
+  @media (max-width: 640px) {
+    .logo-text {
+      display: none;
+    }
+  }
+
+  /* Fixed header adjustments */
+  .header.fixed {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Transparent header adjustments */
+  .header.transparent {
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  /* Mobile contact bar responsive behavior */
+  @media (min-width: 1024px) {
+    .mobile-contact-bar {
+      display: none;
+    }
+  }
+
+  /* Ensure proper spacing for fixed header */
+  body.has-fixed-header {
+    padding-top: 4rem; /* h-16 */
+  }
+
+  @media (min-width: 1024px) {
+    body.has-fixed-header {
+      padding-top: 5rem; /* lg:h-20 */
+    }
+  }
+
+  /* Animation for header appearance */
+  .header {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Focus styles for accessibility */
+  .whatsapp-cta:focus,
+  .phone-cta:focus,
+  .mobile-whatsapp-cta:focus,
+  .mobile-phone-cta:focus {
+    box-shadow: 0 0 0 2px #03A63C, 0 0 0 4px rgba(3, 166, 60, 0.2);
+  }
+</style>
+
+<script>
+  // Handle fixed header behavior on scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.header');
+    const isFixed = header?.classList.contains('fixed');
+    
+    if (isFixed) {
+      // Add body class for fixed header spacing
+      document.body.classList.add('has-fixed-header');
+      
+      // Optional: Add scroll behavior for header background
+      let lastScrollY = window.scrollY;
+      
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        
+        if (header) {
+          // Add/remove background based on scroll position
+          if (currentScrollY > 50) {
+            header.classList.remove('bg-transparent');
+            header.classList.add('bg-white', 'shadow-sm', 'border-b', 'border-light/20');
+          } else {
+            header.classList.add('bg-transparent');
+            header.classList.remove('bg-white', 'shadow-sm', 'border-b', 'border-light/20');
+          }
+        }
+        
+        lastScrollY = currentScrollY;
+      });
+    }
+  });
+</script>

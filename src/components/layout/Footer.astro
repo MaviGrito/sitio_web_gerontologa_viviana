@@ -1,0 +1,388 @@
+---
+import { SITE_CONFIG } from '../../utils/constants';
+
+// Get current year for copyright
+const currentYear = new Date().getFullYear();
+
+// Navigation links for footer
+const footerLinks = [
+  {
+    title: 'Navegación',
+    links: [
+      { href: '/', label: 'Inicio' },
+      { href: '/servicios', label: 'Servicios' },
+      { href: '/recursos', label: 'Recursos' }
+    ]
+  },
+  {
+    title: 'Servicios',
+    links: [
+      { href: '/servicios#consulta-geriatrica', label: 'Consulta Geriátrica' },
+      { href: '/servicios#valoracion-cognitiva', label: 'Valoración Cognitiva' },
+      { href: '/servicios#seguimiento-cronico', label: 'Seguimiento Crónico' }
+    ]
+  }
+];
+
+// Social media links with icons
+const socialLinks = [
+  {
+    name: 'Instagram',
+    href: SITE_CONFIG.social.instagram,
+    icon: 'instagram',
+    ariaLabel: `Seguir en Instagram a ${SITE_CONFIG.author.name}`
+  },
+  {
+    name: 'Facebook',
+    href: SITE_CONFIG.social.facebook,
+    icon: 'facebook',
+    ariaLabel: `Seguir en Facebook a ${SITE_CONFIG.author.name}`
+  },
+  {
+    name: 'LinkedIn',
+    href: SITE_CONFIG.social.linkedin,
+    icon: 'linkedin',
+    ariaLabel: `Conectar en LinkedIn con ${SITE_CONFIG.author.name}`
+  }
+];
+---
+
+<footer class="footer bg-primary-dark text-white" role="contentinfo">
+  <!-- Main Footer Content -->
+  <div class="footer-main py-12 lg:py-16">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        
+        <!-- Brand and Contact Section -->
+        <div class="footer-brand lg:col-span-2">
+          <!-- Logo and Brand -->
+          <div class="brand-section mb-6">
+            <div class="flex items-center space-x-3 mb-4">
+              <!-- Logo Icon -->
+              <div class="logo-icon flex items-center justify-center w-12 h-12 bg-accent rounded-full">
+                <svg 
+                  class="w-7 h-7 text-white" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </div>
+              
+              <!-- Brand Text -->
+              <div>
+                <h2 class="text-xl lg:text-2xl font-heading font-extrabold text-white">
+                  {SITE_CONFIG.author.name}
+                </h2>
+                <p class="text-light font-body">
+                  {SITE_CONFIG.author.title}
+                </p>
+              </div>
+            </div>
+            
+            <!-- Professional Description -->
+            <p class="text-light/90 font-body leading-relaxed mb-6 max-w-md">
+              {SITE_CONFIG.author.bio}
+            </p>
+            
+            <!-- Professional Credentials -->
+            <div class="credentials mb-6">
+              <h3 class="text-sm font-heading font-bold text-accent mb-2 uppercase tracking-wide">
+                Credenciales Profesionales
+              </h3>
+              <ul class="space-y-1">
+                {SITE_CONFIG.author.credentials.map((credential) => (
+                  <li class="text-light/90 font-body text-sm flex items-start">
+                    <svg 
+                      class="w-4 h-4 text-accent mt-0.5 mr-2 flex-shrink-0" 
+                      fill="currentColor" 
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path 
+                        fill-rule="evenodd" 
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    {credential}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="contact-section">
+            <h3 class="text-sm font-heading font-bold text-accent mb-4 uppercase tracking-wide">
+              Información de Contacto
+            </h3>
+            <div class="contact-info space-y-3">
+              
+              <!-- Phone -->
+              <div class="contact-item flex items-center">
+                <svg 
+                  class="w-5 h-5 text-accent mr-3 flex-shrink-0" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
+                </svg>
+                <a 
+                  href={`tel:${SITE_CONFIG.contact.phone}`}
+                  class="text-light/90 hover:text-white transition-colors duration-200 font-body"
+                  aria-label={`Llamar al ${SITE_CONFIG.contact.phone}`}
+                >
+                  {SITE_CONFIG.contact.phone}
+                </a>
+              </div>
+
+              <!-- Email -->
+              <div class="contact-item flex items-center">
+                <svg 
+                  class="w-5 h-5 text-accent mr-3 flex-shrink-0" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                <a 
+                  href={`mailto:${SITE_CONFIG.contact.email}`}
+                  class="text-light/90 hover:text-white transition-colors duration-200 font-body"
+                  aria-label={`Enviar email a ${SITE_CONFIG.contact.email}`}
+                >
+                  {SITE_CONFIG.contact.email}
+                </a>
+              </div>
+
+              <!-- Address -->
+              <div class="contact-item flex items-start">
+                <svg 
+                  class="w-5 h-5 text-accent mr-3 mt-0.5 flex-shrink-0" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round" 
+                    stroke-width="2" 
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span class="text-light/90 font-body">
+                  {SITE_CONFIG.contact.address}
+                </span>
+              </div>
+
+              <!-- WhatsApp -->
+              <div class="contact-item">
+                <a
+                  href={`https://wa.me/${SITE_CONFIG.contact.whatsapp.replace(/[^0-9]/g, '')}?text=Hola, me gustaría agendar una consulta`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center px-4 py-2 bg-accent text-white font-body font-medium rounded-md hover:bg-accent/90 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary-dark transition-all duration-200 shadow-sm hover:shadow-md"
+                  aria-label="Contactar por WhatsApp para agendar consulta"
+                >
+                  <svg 
+                    class="w-5 h-5 mr-2" 
+                    fill="currentColor" 
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                  </svg>
+                  Agendar Consulta
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Links -->
+        {footerLinks.map((section) => (
+          <div class="footer-links">
+            <h3 class="text-sm font-heading font-bold text-accent mb-4 uppercase tracking-wide">
+              {section.title}
+            </h3>
+            <ul class="space-y-2">
+              {section.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="text-light/90 hover:text-white transition-colors duration-200 font-body text-sm"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom bg-primary border-t border-primary/20 py-6">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        
+        <!-- Copyright -->
+        <div class="copyright text-center md:text-left">
+          <p class="text-light/80 font-body text-sm">
+            © {currentYear} {SITE_CONFIG.author.name}. Todos los derechos reservados.
+          </p>
+          <p class="text-light/60 font-body text-xs mt-1">
+            Sitio web profesional para servicios médicos especializados en geriatría.
+          </p>
+        </div>
+
+        <!-- Social Media Links -->
+        <div class="social-links">
+          <div class="flex items-center space-x-4">
+            <span class="text-light/80 font-body text-sm mr-2">Síguenos:</span>
+            {socialLinks.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-link w-8 h-8 flex items-center justify-center bg-primary/50 hover:bg-accent text-light hover:text-white rounded-full transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary-dark"
+                aria-label={social.ariaLabel}
+              >
+                {social.icon === 'instagram' && (
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.004 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.418-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.928.875 1.418 2.026 1.418 3.323s-.49 2.448-1.418 3.244c-.875.807-2.026 1.297-3.323 1.297zm7.83-9.781c-.49 0-.928-.175-1.297-.49-.367-.315-.49-.753-.49-1.243 0-.49.123-.928.49-1.243.369-.367.807-.49 1.297-.49s.928.123 1.297.49c.367.315.49.753.49 1.243 0 .49-.123.928-.49 1.243-.369.315-.807.49-1.297.49z"/>
+                  </svg>
+                )}
+                {social.icon === 'facebook' && (
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                )}
+                {social.icon === 'linkedin' && (
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                  </svg>
+                )}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  /* Footer styles */
+  .footer {
+    margin-top: auto; /* Push footer to bottom when using flexbox layout */
+  }
+
+  /* Hover effects for contact links */
+  .contact-item a:hover {
+    transform: translateX(2px);
+  }
+
+  /* WhatsApp button hover effect */
+  .contact-item a[href*="wa.me"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(3, 166, 60, 0.3);
+  }
+
+  /* Social link hover effects */
+  .social-link:hover {
+    box-shadow: 0 4px 12px rgba(3, 166, 60, 0.3);
+  }
+
+  /* Focus styles for accessibility */
+  .footer a:focus {
+    outline: 2px solid #03A63C;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .footer-main {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    
+    .footer-brand {
+      margin-bottom: 2rem;
+    }
+    
+    .footer-links {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  /* Animation for footer appearance */
+  .footer {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Ensure proper contrast for accessibility */
+  .footer .text-light\/90 {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .footer .text-light\/80 {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .footer .text-light\/60 {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Logo icon hover effect */
+  .logo-icon {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .footer:hover .logo-icon {
+    transform: scale(1.05);
+  }
+</style>

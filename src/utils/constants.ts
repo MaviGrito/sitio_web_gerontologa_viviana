@@ -1,28 +1,29 @@
 import type { SiteConfig, CategoryInfo } from './types';
+import siteConfigData from '../data/site-config.json';
 
 export const SITE_CONFIG: SiteConfig = {
-  title: 'Dr. [Name] - Gerontólogo',
-  description: 'Especialista en geriatría y cuidado del adulto mayor. Consultas médicas especializadas y atención integral.',
+  title: siteConfigData.title,
+  description: siteConfigData.description,
   author: {
-    name: 'Dr. [Name]',
-    title: 'Gerontólogo',
-    credentials: ['Médico Especialista en Geriatría', 'Certificado en Medicina del Envejecimiento'],
-    bio: 'Especialista en geriatría con más de [X] años de experiencia en el cuidado integral del adulto mayor.',
-    photo: '/images/hero-photo.jpg'
+    name: siteConfigData.author.name,
+    title: siteConfigData.author.title,
+    credentials: ['Gerontóloga', 'Especialista en Envejecimiento Activo'],
+    bio: siteConfigData.author.bio,
+    photo: siteConfigData.author.photo
   },
   contact: {
-    email: 'contacto@ejemplo.com',
-    phone: '+57 300 123 4567',
-    whatsapp: '+573001234567',
-    address: 'Dirección de la consulta'
+    email: siteConfigData.contact.email,
+    phone: siteConfigData.contact.phone,
+    whatsapp: siteConfigData.contact.whatsapp,
+    address: siteConfigData.contact.address
   },
   social: {
-    instagram: 'https://instagram.com/usuario',
-    facebook: 'https://facebook.com/usuario',
-    linkedin: 'https://linkedin.com/in/usuario'
+    instagram: siteConfigData.social.instagram,
+    facebook: siteConfigData.social.facebook || '',
+    linkedin: siteConfigData.social.linkedin
   },
   seo: {
-    keywords: ['gerontólogo', 'geriatría', 'adulto mayor', 'medicina del envejecimiento', 'consulta médica'],
+    keywords: ['gerontóloga', 'geriatría', 'adulto mayor', 'envejecimiento activo', 'consulta gerontológica', 'Viviana Tonguino'],
     ogImage: '/images/og-image.jpg'
   }
 };
@@ -65,7 +66,7 @@ export const SOCIAL_LINKS = [
 
 // WhatsApp message template
 export const WHATSAPP_MESSAGE = encodeURIComponent(
-  `Hola Dr. ${SITE_CONFIG.author.name}, me gustaría agendar una consulta. ¿Cuál es su disponibilidad?`
+  `Hola ${SITE_CONFIG.author.name}, me gustaría agendar una consulta gerontológica. ¿Cuál es su disponibilidad?`
 );
 
 // Blog pagination settings

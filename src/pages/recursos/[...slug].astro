@@ -72,42 +72,22 @@ const shareUrls = {
     <article class="article-page">
       <!-- Featured Image / Gallery -->
       <section class="article-hero relative">
-        <!-- Debug info -->
-        <div class="debug-info bg-yellow-100 p-2 text-sm border border-yellow-300 rounded">
-          <strong>DEBUG INFO:</strong><br>
-          Gallery exists: {entry.data.gallery ? 'YES' : 'NO'}<br>
-          Gallery length: {entry.data.gallery ? entry.data.gallery.length : 'undefined'}<br>
-          Gallery > 1: {entry.data.gallery && entry.data.gallery.length > 1 ? 'YES' : 'NO'}<br>
-          Gallery content: {JSON.stringify(entry.data.gallery)}<br>
-        </div>
-        
-        {true ? (
-          <!-- Image Gallery Carousel - FORCED FOR DEBUG -->
+        {entry.data.gallery && entry.data.gallery.length > 1 ? (
+          <!-- Image Gallery Carousel -->
           <div class="gallery-container relative bg-gray-100">
             <div class="aspect-video lg:aspect-[21/9] overflow-hidden">
               <!-- Gallery Images -->
-              <div class="gallery-track flex h-full" id="gallery-track" data-total={entry.data.gallery ? entry.data.gallery.length : 1}>
-                {entry.data.gallery && entry.data.gallery.length > 0 ? entry.data.gallery.map((image, index) => (
+              <div class="gallery-track flex h-full" id="gallery-track" data-total={entry.data.gallery.length}>
+                {entry.data.gallery.map((image, index) => (
                   <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100" data-index={index}>
                     <img
                       src={image}
                       alt={`${entry.data.title} - Imagen ${index + 1}`}
                       class="max-w-full max-h-full object-contain"
                       loading={index === 0 ? "eager" : "lazy"}
-                      onerror={`console.error('Error loading image: ${image}')`}
-                      onload={`console.log('Image loaded: ${image}')`}
                     />
                   </div>
-                )) : (
-                  <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100" data-index="0">
-                    <img
-                      src={entry.data.featuredImage || '/images/blog/default-article.jpg'}
-                      alt={entry.data.title}
-                      class="max-w-full max-h-full object-contain"
-                      loading="eager"
-                    />
-                  </div>
-                )}
+                ))}
               </div>
               
               <!-- Navigation Buttons -->
@@ -133,24 +113,18 @@ const shareUrls = {
               
               <!-- Indicators -->
               <div class="gallery-indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                {entry.data.gallery && entry.data.gallery.length > 0 ? entry.data.gallery.map((_, index) => (
+                {entry.data.gallery.map((_, index) => (
                   <button
                     class="gallery-indicator w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-colors duration-200"
                     data-index={index}
                     aria-label={`Ir a imagen ${index + 1}`}
                   />
-                )) : (
-                  <button
-                    class="gallery-indicator w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-colors duration-200"
-                    data-index="0"
-                    aria-label="Imagen 1"
-                  />
-                )}
+                ))}
               </div>
               
               <!-- Image Counter -->
               <div class="gallery-counter absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm z-10">
-                <span id="current-image">1</span> / {entry.data.gallery ? entry.data.gallery.length : 1}
+                <span id="current-image">1</span> / {entry.data.gallery.length}
               </div>
             </div>
           </div>
@@ -602,14 +576,6 @@ const shareUrls = {
     z-index: 20;
   }
   
-  /* Debug styles */
-  .debug-info {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 30;
-  }
-  
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .gallery-btn {
@@ -639,10 +605,8 @@ const shareUrls = {
 </style>
 
 <script>
-  // Gallery functionality - Simplified and robust
+  // Gallery functionality
   document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎠 Gallery script starting...');
-    
     // Get elements
     const track = document.getElementById('gallery-track');
     const prevBtn = document.getElementById('gallery-prev');
@@ -650,32 +614,15 @@ const shareUrls = {
     const indicators = document.querySelectorAll('.gallery-indicator');
     const currentImageSpan = document.getElementById('current-image');
     
-    // Debug info
-    console.log('🔍 Gallery elements found:', {
-      track: !!track,
-      prevBtn: !!prevBtn,
-      nextBtn: !!nextBtn,
-      indicators: indicators.length,
-      currentImageSpan: !!currentImageSpan
-    });
-    
     // Check if we have a gallery
-    if (!track) {
-      console.log('❌ No gallery track found - probably single image mode');
+    if (!track || !prevBtn || !nextBtn || indicators.length === 0) {
       return;
     }
     
-    if (!prevBtn || !nextBtn || indicators.length === 0) {
-      console.log('❌ Gallery elements missing - aborting initialization');
-      return;
-    }
-    
-    // Get total images from data attribute
+    // Get total images
     const totalImages = parseInt(track.dataset.total) || indicators.length;
-    console.log('📊 Total images:', totalImages);
     
     if (totalImages <= 1) {
-      console.log('❌ Not enough images for carousel');
       return;
     }
     
@@ -684,8 +631,6 @@ const shareUrls = {
     
     // Update gallery function
     function updateGallery() {
-      console.log(`🔄 Updating gallery to slide ${currentIndex + 1}/${totalImages}`);
-      
       // Move track
       const translateX = -currentIndex * 100;
       track.style.transform = `translateX(${translateX}%)`;
@@ -709,14 +654,11 @@ const shareUrls = {
       // Update button states
       prevBtn.disabled = currentIndex === 0;
       nextBtn.disabled = currentIndex === totalImages - 1;
-      
-      console.log(`✅ Gallery updated - showing slide ${currentIndex + 1}`);
     }
     
     // Event listeners
     prevBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('⬅️ Previous button clicked');
       if (currentIndex > 0) {
         currentIndex--;
         updateGallery();
@@ -725,7 +667,6 @@ const shareUrls = {
     
     nextBtn.addEventListener('click', function(e) {
       e.preventDefault();
-      console.log('➡️ Next button clicked');
       if (currentIndex < totalImages - 1) {
         currentIndex++;
         updateGallery();
@@ -736,7 +677,6 @@ const shareUrls = {
     indicators.forEach((indicator, index) => {
       indicator.addEventListener('click', function(e) {
         e.preventDefault();
-        console.log(`🎯 Indicator ${index + 1} clicked`);
         currentIndex = index;
         updateGallery();
       });
@@ -745,11 +685,9 @@ const shareUrls = {
     // Keyboard navigation
     document.addEventListener('keydown', function(e) {
       if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        console.log('⌨️ Left arrow pressed');
         currentIndex--;
         updateGallery();
       } else if (e.key === 'ArrowRight' && currentIndex < totalImages - 1) {
-        console.log('⌨️ Right arrow pressed');
         currentIndex++;
         updateGallery();
       }
@@ -769,11 +707,9 @@ const shareUrls = {
       
       if (Math.abs(diff) > 50) {
         if (diff > 0 && currentIndex < totalImages - 1) {
-          console.log('👆 Swipe left - next image');
           currentIndex++;
           updateGallery();
         } else if (diff < 0 && currentIndex > 0) {
-          console.log('👆 Swipe right - previous image');
           currentIndex--;
           updateGallery();
         }
@@ -781,19 +717,7 @@ const shareUrls = {
     });
     
     // Initialize gallery
-    console.log('🚀 Initializing gallery...');
     updateGallery();
-    
-    // Show debug info temporarily
-    const debugInfo = document.querySelector('.debug-info');
-    if (debugInfo) {
-      debugInfo.style.display = 'block';
-      setTimeout(() => {
-        debugInfo.style.display = 'none';
-      }, 3000);
-    }
-    
-    console.log('✅ Gallery initialization complete!');
   });
 </script>
   }

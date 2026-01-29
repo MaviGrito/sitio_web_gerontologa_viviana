@@ -60,7 +60,7 @@ function isActiveLink(href: string, currentPath: string): boolean {
     aria-expanded="false"
     aria-controls="mobile-menu"
     aria-label="Abrir menú de navegación"
-    onclick="toggleMobileMenu()"
+    type="button"
   >
     <!-- Hamburger Icon -->
     <svg
@@ -118,7 +118,6 @@ function isActiveLink(href: string, currentPath: string): boolean {
               : 'text-primary-dark hover:text-accent hover:bg-light/10'
             }
           `}
-          onclick="closeMobileMenu()"
         >
           {link.label}
         </a>
@@ -128,72 +127,103 @@ function isActiveLink(href: string, currentPath: string): boolean {
 </nav>
 
 <script>
-  // Simple global functions for mobile menu
-  let isMobileMenuOpen = false;
-
-  function toggleMobileMenu() {
-    console.log('Toggle mobile menu called');
+  // Mobile menu functionality with event listeners
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing mobile menu...');
+    
+    let isMobileMenuOpen = false;
+    
     const menu = document.getElementById('mobile-menu');
     const button = document.getElementById('mobile-menu-toggle');
     const hamburgerIcon = document.getElementById('hamburger-icon');
     const closeIcon = document.getElementById('close-icon');
     
+    console.log('Mobile menu elements found:', { menu, button, hamburgerIcon, closeIcon });
+    
     if (!menu || !button || !hamburgerIcon || !closeIcon) {
-      console.error('Mobile menu elements not found');
+      console.error('Some mobile menu elements not found');
       return;
     }
 
-    isMobileMenuOpen = !isMobileMenuOpen;
-    
-    if (isMobileMenuOpen) {
-      // Show menu
-      menu.classList.remove('hidden');
-      menu.classList.add('block');
-      hamburgerIcon.classList.add('hidden');
-      closeIcon.classList.remove('hidden');
-      button.setAttribute('aria-expanded', 'true');
-      button.setAttribute('aria-label', 'Cerrar menú de navegación');
-      document.body.style.overflow = 'hidden';
-      console.log('Menu opened');
-    } else {
-      // Hide menu
-      menu.classList.add('hidden');
-      menu.classList.remove('block');
-      hamburgerIcon.classList.remove('hidden');
-      closeIcon.classList.add('hidden');
-      button.setAttribute('aria-expanded', 'false');
-      button.setAttribute('aria-label', 'Abrir menú de navegación');
-      document.body.style.overflow = '';
-      console.log('Menu closed');
+    function toggleMobileMenu() {
+      console.log('Toggle mobile menu called, current state:', isMobileMenuOpen);
+      
+      isMobileMenuOpen = !isMobileMenuOpen;
+      
+      if (isMobileMenuOpen) {
+        // Show menu
+        menu.classList.remove('hidden');
+        menu.classList.add('block');
+        hamburgerIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+        button.setAttribute('aria-expanded', 'true');
+        button.setAttribute('aria-label', 'Cerrar menú de navegación');
+        document.body.style.overflow = 'hidden';
+        console.log('Menu opened');
+      } else {
+        // Hide menu
+        menu.classList.add('hidden');
+        menu.classList.remove('block');
+        hamburgerIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'Abrir menú de navegación');
+        document.body.style.overflow = '';
+        console.log('Menu closed');
+      }
     }
-  }
 
-  function closeMobileMenu() {
-    console.log('Close mobile menu called');
-    if (isMobileMenuOpen) {
+    function closeMobileMenu() {
+      console.log('Close mobile menu called');
+      if (isMobileMenuOpen) {
+        toggleMobileMenu();
+      }
+    }
+
+    // Add click event listener to button
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Button clicked!');
       toggleMobileMenu();
-    }
-  }
+    });
 
-  // Close menu when clicking outside
-  document.addEventListener('click', function(event) {
-    const menu = document.getElementById('mobile-menu');
-    const button = document.getElementById('mobile-menu-toggle');
-    
-    if (isMobileMenuOpen && menu && button && 
-        !menu.contains(event.target) && 
-        !button.contains(event.target)) {
-      console.log('Clicked outside menu');
-      closeMobileMenu();
-    }
-  });
+    // Add click event listeners to mobile nav links
+    const mobileNavLinks = menu.querySelectorAll('.mobile-nav-link');
+    mobileNavLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        console.log('Nav link clicked');
+        closeMobileMenu();
+      });
+    });
 
-  // Close menu on escape key
-  document.addEventListener('keydown', function(event) {
-    if (event.key === 'Escape' && isMobileMenuOpen) {
-      console.log('Escape key pressed');
-      closeMobileMenu();
-    }
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+      if (isMobileMenuOpen && 
+          !menu.contains(event.target) && 
+          !button.contains(event.target)) {
+        console.log('Clicked outside menu');
+        closeMobileMenu();
+      }
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        console.log('Escape key pressed');
+        closeMobileMenu();
+      }
+    });
+
+    // Handle window resize - close mobile menu if switching to desktop
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        console.log('Window resized to desktop');
+        closeMobileMenu();
+      }
+    });
+
+    console.log('Mobile menu initialized successfully');
   });
 </script>
 
@@ -250,15 +280,26 @@ function isActiveLink(href: string, currentPath: string): boolean {
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 60;
+    z-index: 9999;
     background-color: white;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 0 0 8px 8px;
   }
 
-  /* Show mobile menu when not hidden */
+  /* Force show mobile menu when not hidden */
   #mobile-menu:not(.hidden) {
     display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Force hide mobile menu when hidden */
+  #mobile-menu.hidden {
+    display: none !important;
+    visibility: hidden !important;
   }
 
   /* Mobile menu animation */

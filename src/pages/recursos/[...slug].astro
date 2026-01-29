@@ -73,19 +73,21 @@ const shareUrls = {
       <!-- Featured Image / Gallery -->
       <section class="article-hero relative">
         <!-- Debug info -->
-        <div class="debug-info bg-yellow-100 p-2 text-sm" style="display: none;">
-          Gallery length: {entry.data.gallery ? entry.data.gallery.length : 'undefined'}
-          <br>
-          Gallery content: {JSON.stringify(entry.data.gallery)}
+        <div class="debug-info bg-yellow-100 p-2 text-sm border border-yellow-300 rounded">
+          <strong>DEBUG INFO:</strong><br>
+          Gallery exists: {entry.data.gallery ? 'YES' : 'NO'}<br>
+          Gallery length: {entry.data.gallery ? entry.data.gallery.length : 'undefined'}<br>
+          Gallery > 1: {entry.data.gallery && entry.data.gallery.length > 1 ? 'YES' : 'NO'}<br>
+          Gallery content: {JSON.stringify(entry.data.gallery)}<br>
         </div>
         
-        {entry.data.gallery && entry.data.gallery.length > 1 ? (
-          <!-- Image Gallery Carousel -->
+        {true ? (
+          <!-- Image Gallery Carousel - FORCED FOR DEBUG -->
           <div class="gallery-container relative bg-gray-100">
             <div class="aspect-video lg:aspect-[21/9] overflow-hidden">
               <!-- Gallery Images -->
-              <div class="gallery-track flex h-full" id="gallery-track" data-total={entry.data.gallery.length}>
-                {entry.data.gallery.map((image, index) => (
+              <div class="gallery-track flex h-full" id="gallery-track" data-total={entry.data.gallery ? entry.data.gallery.length : 1}>
+                {entry.data.gallery && entry.data.gallery.length > 0 ? entry.data.gallery.map((image, index) => (
                   <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100" data-index={index}>
                     <img
                       src={image}
@@ -96,7 +98,16 @@ const shareUrls = {
                       onload={`console.log('Image loaded: ${image}')`}
                     />
                   </div>
-                ))}
+                )) : (
+                  <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100" data-index="0">
+                    <img
+                      src={entry.data.featuredImage || '/images/blog/default-article.jpg'}
+                      alt={entry.data.title}
+                      class="max-w-full max-h-full object-contain"
+                      loading="eager"
+                    />
+                  </div>
+                )}
               </div>
               
               <!-- Navigation Buttons -->
@@ -122,18 +133,24 @@ const shareUrls = {
               
               <!-- Indicators -->
               <div class="gallery-indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
-                {entry.data.gallery.map((_, index) => (
+                {entry.data.gallery && entry.data.gallery.length > 0 ? entry.data.gallery.map((_, index) => (
                   <button
                     class="gallery-indicator w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-colors duration-200"
                     data-index={index}
                     aria-label={`Ir a imagen ${index + 1}`}
                   />
-                ))}
+                )) : (
+                  <button
+                    class="gallery-indicator w-3 h-3 rounded-full bg-white/60 hover:bg-white/80 transition-colors duration-200"
+                    data-index="0"
+                    aria-label="Imagen 1"
+                  />
+                )}
               </div>
               
               <!-- Image Counter -->
               <div class="gallery-counter absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm z-10">
-                <span id="current-image">1</span> / {entry.data.gallery.length}
+                <span id="current-image">1</span> / {entry.data.gallery ? entry.data.gallery.length : 1}
               </div>
             </div>
           </div>

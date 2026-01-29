@@ -1,113 +1,47 @@
 ---
-title: "Introducción a la Geriatría: Cuidado Integral del Adulto Mayor"
-description: "Conoce los fundamentos de la geriatría y la importancia del cuidado especializado para adultos mayores."
+title: ¿PARA QUÉ SIRVE IR AL GERONTÓLOGO?
+description: Consultar al gerontólogo es apostar por una sociedad que valora,
+  comprende y respeta el envejecimiento.
 publishDate: 2024-01-15
-featuredImage: "/images/services/services-1.jpg.jpeg"
-category: "gerontologia"
-tags: ["geriatría", "adulto mayor", "medicina", "cuidado integral"]
-author: "Viviana Tonguino Guerrero"
+featuredImage: /uploads/1.jpg
+category: gerontologia
+tags:
+  - Gerontología
+  - gerontólogaenmedellín
+  - gerontólogoenmedellin
+  - personasmayores
+  - gerontólogos
+  - envejecimiento
+  - vejez
+  - personasmayores
+author: Viviana Tonguino Guerrero
 draft: false
-excerpt: "La geriatría es una especialidad médica que se enfoca en el cuidado integral de los adultos mayores, abordando no solo las enfermedades sino también los aspectos funcionales, cognitivos y sociales."
+excerpt: ""
 ---
+***PARA COMPRENDER EL PROCESO DE ENVEJECIMIENTO***
 
-# Introducción a la Geriatría
+El gerontólogo orienta sobre los cambios físicos, cognitivos, emocionales y sociales que ocurren a lo largo del ciclo vital, promoviendo una visión positiva y realista del envejecer.
 
-La **geriatría** es una especialidad médica que se dedica al estudio, prevención, diagnóstico, tratamiento y rehabilitación de las enfermedades en los adultos mayores. Esta disciplina reconoce que el envejecimiento es un proceso natural que requiere un enfoque médico especializado.
+***PARA PLANIFICAR UNA VEJEZ ACTIVA Y SALUDABLE.***
 
-## ¿Qué hace especial a la medicina geriátrica?
+Se trabajan estrategias personalizadas que integran hábitos saludables, redes de apoyo, proyectos de vida y participación social.
 
-### Enfoque Integral
+***PARA FORTALECER LA AUTONOMÍA Y PREVENIR LA DEPENDENCIA.***
 
-La geriatría no se limita a tratar enfermedades específicas, sino que adopta un **enfoque holístico** que considera:
+A través de la evaluación integral, la estimulación de capacidades y la intervención integral, el gerontólogo favorece la independencia funcional y la calidad de vida.
 
-- **Aspectos físicos**: Cambios fisiológicos del envejecimiento
-- **Aspectos cognitivos**: Función mental y memoria
-- **Aspectos funcionales**: Capacidad para realizar actividades diarias
-- **Aspectos sociales**: Entorno familiar y social
+***PARA ACOMPAÑAR A MIS PADRES O ABUELOS DESDE EL RESPETO Y LA COMPRENSIÓN.***
 
-### Principios Fundamentales
+El gerontólogo orienta a las familias para mejorar los vínculos, la comunicación y el cuidado sin infantilizar ni sobreproteger.
 
-1. **Individualización del cuidado**: Cada adulto mayor es único
-2. **Prevención**: Mejor que curar es prevenir
-3. **Mantenimiento de la funcionalidad**: Preservar la independencia
-4. **Calidad de vida**: Más importante que la cantidad de años
+***PARA PROMOVER LA PARTICIPACIÓN Y EL SENTIDO DE PERTENENCIA.***
 
-## Condiciones Comunes en Geriatría
+Favorece la inclusión social, la continuidad de roles y la participación en proyectos que mantengan el propósito de vida.
 
-### Síndromes Geriátricos
+***PARA ACOMPAÑAR TRANSICIONES VITALES.***
 
-Los síndromes geriátricos son condiciones multifactoriales que afectan frecuentemente a los adultos mayores:
+Cambios como la jubilación, el duelo o la reubicación pueden generar crisis; el gerontólogo facilita la adaptación y el afrontamiento saludable.
 
-- **Fragilidad**: Disminución de la reserva fisiológica
-- **Caídas**: Problema multifactorial con graves consecuencias
-- **Deterioro cognitivo**: Desde olvidos benignos hasta demencia
-- **Incontinencia**: Afecta la calidad de vida significativamente
+***PARA ASESORAR EN POLÍTICAS Y PROGRAMAS DE ENVEJECIMIENTO, VEJEZ Y PERSONAS MAYORES***
 
-### Enfermedades Crónicas
-
-Las enfermedades crónicas son muy prevalentes en esta población:
-
-- Diabetes mellitus
-- Hipertensión arterial
-- Enfermedades cardiovasculares
-- Osteoporosis
-- Artritis
-
-## La Importancia de la Evaluación Geriátrica Integral
-
-La **Evaluación Geriátrica Integral (EGI)** es una herramienta fundamental que incluye:
-
-### Evaluación Médica
-- Historia clínica detallada
-- Examen físico completo
-- Revisión de medicamentos
-- Evaluación de sistemas
-
-### Evaluación Funcional
-- Actividades básicas de la vida diaria (ABVD)
-- Actividades instrumentales de la vida diaria (AIVD)
-- Movilidad y equilibrio
-
-### Evaluación Cognitiva
-- Función mental
-- Estado de ánimo
-- Capacidad de toma de decisiones
-
-### Evaluación Social
-- Apoyo familiar
-- Recursos económicos
-- Entorno físico
-
-## Beneficios del Cuidado Geriátrico Especializado
-
-### Para el Paciente
-- Mejor calidad de vida
-- Mantenimiento de la independencia
-- Reducción de hospitalizaciones
-- Manejo optimizado de medicamentos
-
-### Para la Familia
-- Orientación y apoyo
-- Educación sobre el cuidado
-- Reducción del estrés del cuidador
-- Planificación a largo plazo
-
-## Cuándo Consultar a un Geriatra
-
-Es recomendable consultar a un especialista en geriatría cuando:
-
-- El adulto mayor presenta múltiples enfermedades
-- Hay deterioro funcional o cognitivo
-- Se presentan caídas frecuentes
-- Existe polifarmacia (múltiples medicamentos)
-- Se requiere planificación de cuidados a largo plazo
-
-## Conclusión
-
-La geriatría representa un enfoque especializado y necesario para el cuidado de nuestros adultos mayores. A través de una evaluación integral y un manejo multidisciplinario, es posible mejorar significativamente la calidad de vida y mantener la funcionalidad e independencia de esta población.
-
-El envejecimiento exitoso es posible cuando se cuenta con el cuidado médico adecuado, el apoyo familiar necesario y las estrategias preventivas apropiadas.
-
----
-
-*Si tienes dudas sobre el cuidado de un adulto mayor o necesitas una evaluación geriátrica, no dudes en contactarnos para agendar una consulta especializada.*
+Participa en la creación y evaluación de estrategias, políticas y proyectos que garanticen entornos accesibles, inclusivos y sostenibles para las personas mayores.

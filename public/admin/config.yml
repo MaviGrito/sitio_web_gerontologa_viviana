@@ -63,10 +63,11 @@ collections:
           required: false,
           field: {
             label: "Imagen",
-            name: "gallery",
-            widget: "image"
+            name: "image",
+            widget: "string",
+            hint: "URL de la imagen (ej: /uploads/imagen.jpg)"
           },
-          hint: "Imágenes adicionales que aparecerán en una galería deslizable. Puedes agregar múltiples imágenes."
+          hint: "URLs de imágenes adicionales para la galería deslizable. Formato: /uploads/nombre.jpg"
         }
       - {
           label: "Categoría", 

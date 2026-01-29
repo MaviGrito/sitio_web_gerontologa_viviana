@@ -4,6 +4,16 @@ description: Consultar al gerontólogo es apostar por una sociedad que valora,
   comprende y respeta el envejecimiento.
 publishDate: 2024-01-15
 featuredImage: /uploads/9.jpg
+gallery:
+  - /uploads/1.jpg
+  - /uploads/2.jpg
+  - /uploads/3.jpg
+  - /uploads/4.jpg
+  - /uploads/5.jpg
+  - /uploads/6.jpg
+  - /uploads/7.jpg
+  - /uploads/8.jpg
+  - /uploads/9.jpg
 category: gerontologia
 tags:
   - Gerontología

@@ -3,6 +3,11 @@ title: "Nutrición en el Adulto Mayor: Claves para un Envejecimiento Saludable"
 description: "Descubre la importancia de una alimentación adecuada en la tercera edad y cómo mantener un estado nutricional óptimo."
 publishDate: 2024-01-20
 featuredImage: "/images/services/services-1.jpg.jpeg"
+gallery: [
+  "/images/services/services-1.jpg.jpeg",
+  "/images/services/services-2.jpg.jpeg",
+  "/images/doctor-profile.jpg.jpeg"
+]
 category: "nutricion"
 tags: ["nutrición", "alimentación", "adulto mayor", "salud", "envejecimiento"]
 author: "Viviana Tonguino Guerrero"

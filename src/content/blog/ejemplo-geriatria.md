@@ -3,6 +3,12 @@ title: "Introducción a la Geriatría: Cuidado Integral del Adulto Mayor"
 description: "Conoce los fundamentos de la geriatría y la importancia del cuidado especializado para adultos mayores."
 publishDate: 2024-01-15
 featuredImage: "/images/services/services-1.jpg.jpeg"
+gallery: [
+  "/images/services/services-1.jpg.jpeg",
+  "/images/services/services-2.jpg.jpeg",
+  "/images/doctor-profile.jpg.jpeg",
+  "/images/services/services-1.jpg.jpeg"
+]
 category: "gerontologia"
 tags: ["geriatría", "adulto mayor", "medicina", "cuidado integral"]
 author: "Viviana Tonguino Guerrero"

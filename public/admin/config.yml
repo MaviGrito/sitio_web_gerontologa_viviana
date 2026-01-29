@@ -9,8 +9,8 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 # Site URL for preview links
-site_url: https://gerontologa-viviana-tonguino.netlify.app
-display_url: https://gerontologa-viviana-tonguino.netlify.app
+site_url: https://gerontologaviviana.com
+display_url: https://gerontologaviviana.com
 
 # Logo for the CMS interface
 logo_url: /images/logo.svg
@@ -55,6 +55,18 @@ collections:
           name: "featuredImage", 
           widget: "image",
           hint: "Imagen principal del artículo (recomendado: 1200x630px)"
+        }
+      - {
+          label: "Galería de Imágenes", 
+          name: "gallery", 
+          widget: "list",
+          required: false,
+          field: {
+            label: "Imagen",
+            name: "image",
+            widget: "image"
+          },
+          hint: "Imágenes adicionales que aparecerán en una galería deslizable"
         }
       - {
           label: "Categoría", 

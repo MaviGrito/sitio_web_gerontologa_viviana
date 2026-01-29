@@ -8,6 +8,7 @@ const blogCollection = defineCollection({
     description: z.string().min(1, 'Description is required').max(200, 'Description must be less than 200 characters'),
     publishDate: z.date(),
     featuredImage: z.string().optional(),
+    gallery: z.array(z.string()).optional().default([]),
     category: z.enum(['gerontologia', 'nutricion', 'ejercicio', 'salud-mental'], {
       errorMap: () => ({ message: 'Category must be one of: gerontologia, nutricion, ejercicio, salud-mental' })
     }),

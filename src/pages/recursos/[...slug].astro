@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/layout/Header.astro';
+import ImageGallery from '../../components/ui/ImageGallery.astro';
 import { SITE_CONFIG } from '../../utils/constants';
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
@@ -75,11 +76,11 @@ const shareUrls = {
     <article class="article-page">
       <!-- Featured Image -->
       <section class="article-hero relative">
-        <div class="aspect-video lg:aspect-[21/9] overflow-hidden">
+        <div class="aspect-video lg:aspect-[21/9] overflow-hidden bg-gray-100 flex items-center justify-center">
           <img
             src={entry.data.featuredImage || '/images/blog/default-article.jpg'}
             alt={entry.data.title}
-            class="w-full h-full object-cover"
+            class="max-w-full max-h-full object-contain"
             loading="eager"
           />
         </div>
@@ -157,6 +158,14 @@ const shareUrls = {
                 <div class="prose prose-lg max-w-none">
                   <Content />
                 </div>
+                
+                <!-- Image Gallery -->
+                {entry.data.gallery && entry.data.gallery.length > 0 && (
+                  <ImageGallery 
+                    images={entry.data.gallery} 
+                    title={entry.data.title} 
+                  />
+                )}
                 
                 <!-- Tags -->
                 {entry.data.tags && entry.data.tags.length > 0 && (
@@ -261,11 +270,11 @@ const shareUrls = {
               <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {relatedPosts.map((post) => (
                   <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <div class="aspect-video overflow-hidden">
+                    <div class="aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
                       <img
                         src={post.data.featuredImage || '/images/blog/default-article.jpg'}
                         alt={post.data.title}
-                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        class="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
                         loading="lazy"
                       />
                     </div>

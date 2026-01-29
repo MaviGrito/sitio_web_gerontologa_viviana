@@ -1,13 +1,20 @@
 ---
-title: "Introducción a la Geriatría: Cuidado Integral del Adulto Mayor"
-description: "Conoce los fundamentos de la geriatría y la importancia del cuidado especializado para adultos mayores."
+title: "Introducción a la Geriatría: Cuidado Integral de la Persona Mayor"
+description: Conoce los fundamentos de la gerontología y la importancia del
+  cuidado especializado para peronas mayores.
 publishDate: 2024-01-15
-featuredImage: "/images/services/services-1.jpg.jpeg"
-category: "gerontologia"
-tags: ["geriatría", "adulto mayor", "medicina", "cuidado integral"]
-author: "Viviana Tonguino Guerrero"
+featuredImage: /images/services/services-1.jpg.jpeg
+category: gerontologia
+tags:
+  - geriatría
+  - adulto mayor
+  - medicina
+  - cuidado integral
+author: Viviana Tonguino Guerrero
 draft: false
-excerpt: "La geriatría es una especialidad médica que se enfoca en el cuidado integral de los adultos mayores, abordando no solo las enfermedades sino también los aspectos funcionales, cognitivos y sociales."
+excerpt: La geriatría es una especialidad médica que se enfoca en el cuidado
+  integral de los adultos mayores, abordando no solo las enfermedades sino
+  también los aspectos funcionales, cognitivos y sociales.
 ---
 
 # Introducción a la Geriatría

@@ -37,15 +37,12 @@ const categoryLabels = {
   'salud-mental': 'Salud Mental'
 };
 
-// Get related articles (same category, excluding current)
+// Get random articles (excluding current article)
 const allPosts = await getCollection('blog');
-const relatedPosts = allPosts
-  .filter(post => 
-    !post.data.draft && 
-    post.data.category === entry.data.category && 
-    post.slug !== entry.slug
-  )
-  .slice(0, 3);
+const otherPosts = allPosts
+  .filter(post => !post.data.draft && post.slug !== entry.slug)
+  .sort(() => Math.random() - 0.5) // Randomize
+  .slice(0, 3); // Take first 3
 
 // Social sharing URLs
 const currentUrl = `${SITE_CONFIG.url || 'https://your-site.com'}/recursos/${entry.slug}`;
@@ -227,52 +224,74 @@ const shareUrls = {
                 
                 <!-- Other Articles Section -->
                 <div class="other-articles mt-12 pt-8 border-t border-gray-200">
-                  <h3 class="text-2xl font-heading font-bold text-primary-dark mb-6">
+                  <h3 class="text-2xl font-heading font-bold text-primary-dark mb-6 text-center">
                     Otros Artículos
                   </h3>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {relatedPosts.slice(0, 4).map((post) => (
-                      <article class="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-colors duration-200">
-                        <div class="flex items-start space-x-4">
-                          <div class="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg overflow-hidden">
-                            <img
-                              src={post.data.featuredImage || '/images/blog/default-article.jpg'}
-                              alt={post.data.title}
-                              class="w-full h-full object-contain"
-                              loading="lazy"
-                            />
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    {otherPosts.map((post) => (
+                      <article class="article-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                        <!-- Featured Image -->
+                        <div class="article-image aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
+                          <img
+                            src={post.data.featuredImage || '/images/blog/default-article.jpg'}
+                            alt={post.data.title}
+                            class="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
+                        
+                        <!-- Article Content -->
+                        <div class="article-content p-6">
+                          <!-- Category Badge -->
+                          <div class="mb-3">
+                            <span class={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                              post.data.category === 'gerontologia' ? 'bg-primary/10 text-primary' :
+                              post.data.category === 'nutricion' ? 'bg-green-100 text-green-800' :
+                              post.data.category === 'ejercicio' ? 'bg-blue-100 text-blue-800' :
+                              post.data.category === 'salud-mental' ? 'bg-purple-100 text-purple-800' :
+                              'bg-gray-100 text-gray-800'
+                            }`}>
+                              {categoryLabels[post.data.category] || post.data.category}
+                            </span>
                           </div>
-                          <div class="flex-1 min-w-0">
-                            <h4 class="text-lg font-heading font-semibold text-primary-dark mb-2 line-clamp-2">
-                              <a 
-                                href={`/recursos/${post.slug}`}
-                                class="hover:text-primary transition-colors duration-200"
-                              >
-                                {post.data.title}
-                              </a>
-                            </h4>
-                            <p class="text-sm text-gray-600 line-clamp-2">
-                              {post.data.excerpt || post.data.description}
-                            </p>
-                            <div class="mt-2">
-                              <span class={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
-                                post.data.category === 'gerontologia' ? 'bg-primary/10 text-primary' :
-                                post.data.category === 'nutricion' ? 'bg-green-100 text-green-800' :
-                                post.data.category === 'ejercicio' ? 'bg-blue-100 text-blue-800' :
-                                post.data.category === 'salud-mental' ? 'bg-purple-100 text-purple-800' :
-                                'bg-gray-100 text-gray-800'
-                              }`}>
-                                {categoryLabels[post.data.category] || post.data.category}
-                              </span>
-                            </div>
+                          
+                          <!-- Title -->
+                          <h4 class="text-xl font-heading font-bold text-primary-dark mb-3 line-clamp-2">
+                            <a 
+                              href={`/recursos/${post.slug}`}
+                              class="hover:text-primary transition-colors duration-200"
+                            >
+                              {post.data.title}
+                            </a>
+                          </h4>
+                          
+                          <!-- Date -->
+                          <div class="text-sm text-gray-500 mb-3">
+                            {formatDate(post.data.publishDate)}
                           </div>
+                          
+                          <!-- Excerpt -->
+                          <p class="text-gray-600 font-body mb-4 line-clamp-3">
+                            {post.data.excerpt || post.data.description}
+                          </p>
+                          
+                          <!-- Read More Link -->
+                          <a 
+                            href={`/recursos/${post.slug}`}
+                            class="inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors duration-200"
+                          >
+                            Leer más
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                          </a>
                         </div>
                       </article>
                     ))}
                   </div>
                   
                   <!-- View All Articles Button -->
-                  <div class="text-center mt-6">
+                  <div class="text-center mt-8">
                     <a
                       href="/recursos"
                       class="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors duration-200"
@@ -377,16 +396,16 @@ const shareUrls = {
       </section>
 
       <!-- Related Articles -->
-      {relatedPosts.length > 0 && (
+      {otherPosts.length > 0 && (
         <section class="related-articles py-16 bg-gray-50">
           <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
               <h2 class="text-3xl font-heading font-extrabold text-primary-dark mb-8 text-center">
-                Artículos Relacionados
+                Más Artículos
               </h2>
               
               <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {relatedPosts.map((post) => (
+                {otherPosts.map((post) => (
                   <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
                     <div class="aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
                       <img
@@ -497,6 +516,22 @@ const shareUrls = {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Article cards */
+  .article-card {
+    transition: all 0.3s ease;
+  }
+  
+  .article-card:hover {
+    transform: translateY(-4px);
   }
   
   /* Gallery styles */

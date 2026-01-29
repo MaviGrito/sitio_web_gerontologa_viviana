@@ -1,8 +1,16 @@
 ---
 import { SITE_CONFIG } from '../../utils/constants';
+import { getCollection } from 'astro:content';
 
 // Get current year for copyright
 const currentYear = new Date().getFullYear();
+
+// Get real services from content collection
+const allServices = await getCollection('services');
+const activeServices = allServices
+  .filter(service => service.data.active)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 5); // Limit to 5 services for footer
 
 // Navigation links for footer
 const footerLinks = [
@@ -16,11 +24,10 @@ const footerLinks = [
   },
   {
     title: 'Servicios',
-    links: [
-      { href: '/servicios#consulta-geriatrica', label: 'Consulta Geriátrica' },
-      { href: '/servicios#valoracion-cognitiva', label: 'Valoración Cognitiva' },
-      { href: '/servicios#seguimiento-cronico', label: 'Seguimiento Crónico' }
-    ]
+    links: activeServices.map(service => ({
+      href: `/servicios#${service.data.id}`,
+      label: service.data.title
+    }))
   }
 ];
 

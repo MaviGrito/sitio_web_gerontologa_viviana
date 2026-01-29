@@ -1,33 +1,297 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/layout/Header.astro';
+import { SITE_CONFIG } from '../utils/constants';
+import { getCollection } from 'astro:content';
+
+// Get all blog posts
+const allPosts = await getCollection('blog');
+
+// Filter out draft posts and sort by date (newest first)
+const publishedPosts = allPosts
+  .filter(post => !post.data.draft)
+  .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
+
+// Get unique categories for filtering
+const categories = [...new Set(publishedPosts.map(post => post.data.category))];
+
+// Category labels in Spanish
+const categoryLabels = {
+  'geriatria': 'Geriatría',
+  'gerontologia': 'Gerontología', 
+  'nutricion': 'Nutrición',
+  'ejercicio': 'Ejercicio',
+  'salud-mental': 'Salud Mental'
+};
+
+// Format date function
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }).format(date);
+}
 ---
 
 <BaseLayout 
-  title="Recursos - Dr. [Name] Gerontólogo"
-  description="Recursos educativos y artículos sobre geriatría y cuidado del adulto mayor."
+  title={`Recursos - ${SITE_CONFIG.title}`}
+  description="Artículos educativos y recursos sobre gerontología, nutrición, ejercicio y bienestar para adultos mayores."
 >
   <!-- Header -->
   <Header currentPath="/recursos" />
 
   <!-- Main Content -->
   <main class="flex-1">
-    <div class="min-h-screen p-8">
-      <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-heading text-primary-dark mb-6">
-          Recursos y Artículos
-        </h1>
-        
-        <div class="card-professional">
-          <h2 class="text-2xl font-heading text-primary-dark mb-4">Contenido Educativo</h2>
-          <p class="font-body text-primary-dark">
-            Esta página contendrá artículos educativos, recursos y publicaciones sobre geriatría, gerontología y el cuidado del adulto mayor.
-          </p>
-          <p class="font-body text-primary-dark mt-4">
-            Página en construcción - Se implementará en las siguientes tareas del proyecto.
+    <!-- Hero Section -->
+    <section class="hero-section bg-gradient-to-br from-primary-light/20 to-white py-16 lg:py-20">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-4xl lg:text-5xl font-heading font-extrabold text-primary-dark mb-6">
+            Recursos y Artículos
+          </h1>
+          <p class="text-xl font-body text-gray-600 mb-8">
+            Información valiosa sobre gerontología, nutrición, ejercicio y bienestar para un envejecimiento saludable
           </p>
         </div>
       </div>
-    </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section py-8 bg-white border-b border-gray-200">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+          <div class="flex flex-wrap justify-center gap-4">
+            <button 
+              class="filter-btn active" 
+              data-category="all"
+            >
+              Todos los Artículos
+            </button>
+            {categories.map(category => (
+              <button 
+                class="filter-btn" 
+                data-category={category}
+              >
+                {categoryLabels[category] || category}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="articles-section py-16 bg-gray-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
+          <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {publishedPosts.map((post) => (
+              <article 
+                class="article-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                data-category={post.data.category}
+              >
+                <!-- Featured Image -->
+                <div class="article-image aspect-video overflow-hidden">
+                  <img
+                    src={post.data.featuredImage || '/images/blog/default-article.jpg'}
+                    alt={post.data.title}
+                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                
+                <!-- Article Content -->
+                <div class="article-content p-6">
+                  <!-- Category Badge -->
+                  <div class="mb-3">
+                    <span class={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+                      post.data.category === 'geriatria' ? 'bg-primary/10 text-primary' :
+                      post.data.category === 'nutricion' ? 'bg-green-100 text-green-800' :
+                      post.data.category === 'ejercicio' ? 'bg-blue-100 text-blue-800' :
+                      post.data.category === 'salud-mental' ? 'bg-purple-100 text-purple-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {categoryLabels[post.data.category] || post.data.category}
+                    </span>
+                  </div>
+                  
+                  <!-- Title -->
+                  <h2 class="text-xl font-heading font-bold text-primary-dark mb-3 line-clamp-2">
+                    <a 
+                      href={`/recursos/${post.slug}`}
+                      class="hover:text-primary transition-colors duration-200"
+                    >
+                      {post.data.title}
+                    </a>
+                  </h2>
+                  
+                  <!-- Date -->
+                  <div class="text-sm text-gray-500 mb-3">
+                    {formatDate(post.data.publishDate)}
+                  </div>
+                  
+                  <!-- Excerpt -->
+                  <p class="text-gray-600 font-body mb-4 line-clamp-3">
+                    {post.data.excerpt || post.data.description}
+                  </p>
+                  
+                  <!-- Read More Link -->
+                  <a 
+                    href={`/recursos/${post.slug}`}
+                    class="inline-flex items-center text-primary font-semibold hover:text-primary-dark transition-colors duration-200"
+                  >
+                    Leer más
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+          
+          <!-- No Results Message -->
+          <div id="no-results" class="hidden text-center py-12">
+            <div class="max-w-md mx-auto">
+              <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              <h3 class="text-xl font-heading font-bold text-gray-600 mb-2">
+                No se encontraron artículos
+              </h3>
+              <p class="text-gray-500">
+                No hay artículos disponibles en esta categoría.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section py-16 bg-gradient-to-br from-primary-light/10 to-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl lg:text-4xl font-heading font-extrabold text-primary-dark mb-4">
+            ¿Te gustaría recibir más contenido?
+          </h2>
+          <p class="text-lg font-body text-gray-600 mb-8">
+            Contáctame para recibir información actualizada sobre gerontología y bienestar
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href={`https://wa.me/${SITE_CONFIG.contact.whatsapp.replace(/[^0-9]/g, '')}?text=Hola, me gustaría recibir información sobre recursos de gerontología`}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-primary inline-flex items-center justify-center"
+            >
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+              </svg>
+              Contactar por WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </BaseLayout>
+
+<style>
+  /* Filter buttons */
+  .filter-btn {
+    @apply px-6 py-2 rounded-full border border-gray-300 text-gray-600 font-medium transition-all duration-200 hover:border-primary hover:text-primary;
+  }
+  
+  .filter-btn.active {
+    @apply bg-primary text-white border-primary;
+  }
+  
+  /* Article cards */
+  .article-card {
+    transition: all 0.3s ease;
+  }
+  
+  .article-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Animation for filtered articles */
+  .article-card.hidden {
+    display: none;
+  }
+  
+  .article-card.show {
+    animation: fadeInUp 0.5s ease forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  // Filter functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const articleCards = document.querySelectorAll('.article-card');
+    const noResults = document.getElementById('no-results');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter articles
+        let visibleCount = 0;
+        
+        articleCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          
+          if (category === 'all' || cardCategory === category) {
+            card.classList.remove('hidden');
+            card.classList.add('show');
+            visibleCount++;
+          } else {
+            card.classList.add('hidden');
+            card.classList.remove('show');
+          }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

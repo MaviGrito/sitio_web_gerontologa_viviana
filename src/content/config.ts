@@ -8,8 +8,8 @@ const blogCollection = defineCollection({
     description: z.string().min(1, 'Description is required').max(200, 'Description must be less than 200 characters'),
     publishDate: z.date(),
     featuredImage: z.string().url('Featured image must be a valid URL or path'),
-    category: z.enum(['geriatria', 'nutricion', 'ejercicio', 'salud-mental'], {
-      errorMap: () => ({ message: 'Category must be one of: geriatria, nutricion, ejercicio, salud-mental' })
+    category: z.enum(['gerontologia', 'nutricion', 'ejercicio', 'salud-mental'], {
+      errorMap: () => ({ message: 'Category must be one of: gerontologia, nutricion, ejercicio, salud-mental' })
     }),
     tags: z.array(z.string()).optional().default([]),
     author: z.string().default('Dr. [Name]'),

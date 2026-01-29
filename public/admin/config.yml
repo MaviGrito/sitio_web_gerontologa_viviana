@@ -61,7 +61,7 @@ collections:
           name: "category", 
           widget: "select", 
           options: [
-            {label: "Geriatría", value: "geriatria"},
+            {label: "Gerontología", value: "gerontologia"},
             {label: "Nutrición", value: "nutricion"},
             {label: "Ejercicio", value: "ejercicio"},
             {label: "Salud Mental", value: "salud-mental"}

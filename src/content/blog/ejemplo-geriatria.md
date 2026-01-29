@@ -3,7 +3,7 @@ title: "Introducción a la Geriatría: Cuidado Integral del Adulto Mayor"
 description: "Conoce los fundamentos de la geriatría y la importancia del cuidado especializado para adultos mayores."
 publishDate: 2024-01-15
 featuredImage: "/images/blog/geriatria-intro.jpg"
-category: "geriatria"
+category: "gerontologia"
 tags: ["geriatría", "adulto mayor", "medicina", "cuidado integral"]
 author: "Dr. [Name]"
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: "Introducción a la Geriatría: Cuidado Integral de la Persona Mayor"
 description: Conoce los fundamentos de la gerontología y la importancia del
-  cuidado especializado para peronas mayores.
+  cuidado especializado para personas mayores.
 publishDate: 2024-01-15
 featuredImage: /images/services/services-1.jpg.jpeg
 category: gerontologia

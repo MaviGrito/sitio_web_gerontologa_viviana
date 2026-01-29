@@ -78,7 +78,7 @@ collections:
           label: "Autor", 
           name: "author", 
           widget: "string", 
-          default: "Dr. [Name]"
+          default: "Viviana Tonguino Guerrero"
         }
       - {
           label: "Borrador", 

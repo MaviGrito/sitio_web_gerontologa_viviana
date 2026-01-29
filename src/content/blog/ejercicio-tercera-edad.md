@@ -2,10 +2,10 @@
 title: "Ejercicio en la Tercera Edad: Mantenerse Activo para Envejecer Mejor"
 description: "Conoce los beneficios del ejercicio físico en adultos mayores y cómo implementar una rutina segura y efectiva."
 publishDate: 2024-01-25
-featuredImage: "/images/blog/ejercicio-tercera-edad.jpg"
+featuredImage: "/images/services/services-2.jpg.jpeg"
 category: "ejercicio"
 tags: ["ejercicio", "actividad física", "adulto mayor", "salud", "bienestar"]
-author: "Dr. [Name]"
+author: "Viviana Tonguino Guerrero"
 draft: false
 excerpt: "El ejercicio regular es una de las mejores inversiones que puede hacer un adulto mayor para mantener su salud, independencia y calidad de vida."
 ---

@@ -7,12 +7,12 @@ const blogCollection = defineCollection({
     title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
     description: z.string().min(1, 'Description is required').max(200, 'Description must be less than 200 characters'),
     publishDate: z.date(),
-    featuredImage: z.string().url('Featured image must be a valid URL or path'),
+    featuredImage: z.string().optional(),
     category: z.enum(['gerontologia', 'nutricion', 'ejercicio', 'salud-mental'], {
       errorMap: () => ({ message: 'Category must be one of: gerontologia, nutricion, ejercicio, salud-mental' })
     }),
     tags: z.array(z.string()).optional().default([]),
-    author: z.string().default('Dr. [Name]'),
+    author: z.string().default('Viviana Tonguino Guerrero'),
     draft: z.boolean().default(false),
     // Additional optional fields for enhanced functionality
     excerpt: z.string().max(300, 'Excerpt must be less than 300 characters').optional(),

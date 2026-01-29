@@ -6,6 +6,10 @@ publishDate: 2024-01-15
 featuredImage: /uploads/1.jpg
 gallery: [
   "/uploads/1.jpg",
+  "/uploads/gallery-1.jpg",
+  "/uploads/gallery-2.jpg",
+  "/uploads/gallery-3.jpg",
+  "/uploads/gallery-4.jpg",
   "/images/services/services-1.jpg.jpeg",
   "/images/services/services-2.jpg.jpeg",
   "/images/doctor-profile.jpg.jpeg"

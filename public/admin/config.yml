@@ -9,8 +9,8 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 # Site URL for preview links
-site_url: https://your-gerontologist-site.netlify.app
-display_url: https://your-gerontologist-site.netlify.app
+site_url: https://gerontologa-viviana-tonguino.netlify.app
+display_url: https://gerontologa-viviana-tonguino.netlify.app
 
 # Logo for the CMS interface
 logo_url: /images/logo.svg

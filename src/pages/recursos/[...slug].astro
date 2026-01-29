@@ -77,14 +77,15 @@ const shareUrls = {
           <div class="gallery-container relative bg-gray-100">
             <div class="aspect-video lg:aspect-[21/9] overflow-hidden">
               <!-- Gallery Images -->
-              <div class="gallery-track flex transition-transform duration-300 ease-in-out h-full" id="gallery-track">
+              <div class="gallery-track flex transition-transform duration-300 ease-in-out h-full" id="gallery-track" style={`--total-images: ${entry.data.gallery.length}`}>
                 {entry.data.gallery.map((image, index) => (
-                  <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100">
+                  <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100" style="min-width: 100%;">
                     <img
                       src={image}
                       alt={`${entry.data.title} - Imagen ${index + 1}`}
                       class="max-w-full max-h-full object-contain"
                       loading={index === 0 ? "eager" : "lazy"}
+                      onerror={`console.error('Error loading image: ${image}')`}
                     />
                   </div>
                 ))}
@@ -540,11 +541,23 @@ const shareUrls = {
   }
   
   .gallery-track {
+    display: flex;
     width: calc(100% * var(--total-images, 1));
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
   }
   
   .gallery-slide {
-    width: calc(100% / var(--total-images, 1));
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .gallery-btn {
+    z-index: 20;
   }
   
   .gallery-btn:hover {
@@ -557,8 +570,17 @@ const shareUrls = {
     transform: translateY(-50%) scale(1);
   }
   
+  .gallery-indicator {
+    cursor: pointer;
+    z-index: 20;
+  }
+  
   .gallery-indicator.active {
     background-color: white !important;
+  }
+  
+  .gallery-counter {
+    z-index: 20;
   }
   
   /* Responsive adjustments */
@@ -592,18 +614,29 @@ const shareUrls = {
 <script>
   // Gallery functionality
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('Gallery script loaded');
+    
     const track = document.getElementById('gallery-track');
     const prevBtn = document.getElementById('gallery-prev');
     const nextBtn = document.getElementById('gallery-next');
     const indicators = document.querySelectorAll('.gallery-indicator');
     const currentImageSpan = document.getElementById('current-image');
     
-    if (!track || !prevBtn || !nextBtn || indicators.length === 0) return;
+    console.log('Gallery elements:', { track, prevBtn, nextBtn, indicators: indicators.length });
+    
+    if (!track || !prevBtn || !nextBtn || indicators.length === 0) {
+      console.log('Gallery elements not found, skipping gallery initialization');
+      return;
+    }
     
     let currentIndex = 0;
     const totalImages = indicators.length;
     
+    console.log('Gallery initialized with', totalImages, 'images');
+    
     function updateGallery() {
+      console.log('Updating gallery to index:', currentIndex);
+      
       // Move track
       const translateX = -currentIndex * 100;
       track.style.transform = `translateX(${translateX}%)`;
@@ -627,10 +660,16 @@ const shareUrls = {
       // Update button states
       prevBtn.disabled = currentIndex === 0;
       nextBtn.disabled = currentIndex === totalImages - 1;
+      
+      // Update button opacity
+      prevBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      nextBtn.style.opacity = currentIndex === totalImages - 1 ? '0.5' : '1';
     }
     
     // Previous button
-    prevBtn.addEventListener('click', function() {
+    prevBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Previous button clicked, current index:', currentIndex);
       if (currentIndex > 0) {
         currentIndex--;
         updateGallery();
@@ -638,7 +677,9 @@ const shareUrls = {
     });
     
     // Next button
-    nextBtn.addEventListener('click', function() {
+    nextBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Next button clicked, current index:', currentIndex);
       if (currentIndex < totalImages - 1) {
         currentIndex++;
         updateGallery();
@@ -647,7 +688,9 @@ const shareUrls = {
     
     // Indicator buttons
     indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', function() {
+      indicator.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Indicator clicked, going to index:', index);
         currentIndex = index;
         updateGallery();
       });
@@ -690,6 +733,7 @@ const shareUrls = {
     });
     
     // Initialize
+    console.log('Initializing gallery');
     updateGallery();
   });
 </script>

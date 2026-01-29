@@ -63,10 +63,10 @@ collections:
           required: false,
           field: {
             label: "Imagen",
-            name: "image",
+            name: "gallery",
             widget: "image"
           },
-          hint: "Imágenes adicionales que aparecerán en una galería deslizable"
+          hint: "Imágenes adicionales que aparecerán en una galería deslizable. Puedes agregar múltiples imágenes."
         }
       - {
           label: "Categoría", 

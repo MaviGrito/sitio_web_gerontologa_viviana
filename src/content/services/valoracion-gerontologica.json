@@ -1,0 +1,18 @@
+{
+  "id": "valoracion-gerontologica",
+  "icon": "stethoscope",
+  "title": "Valoración Gerontológica",
+  "description": "Evaluación integral del estado funcional, cognitivo y social del adulto mayor.",
+  "benefits": [
+    "Evaluación integral completa y personalizada",
+    "Análisis del estado funcional, cognitivo y social",
+    "Identificación de factores de riesgo",
+    "Plan de intervención personalizado"
+  ],
+  "detailedDescription": "La valoración gerontológica es una evaluación multidimensional e interdisciplinaria que analiza las capacidades y problemas médicos, psicosociales y funcionales del adulto mayor. Esta evaluación permite identificar problemas no detectados previamente, desarrollar un plan de tratamiento integral y optimizar los resultados de salud.",
+  "duration": "90 minutos",
+  "price": "Consultar",
+  "order": 1,
+  "active": true,
+  "image": "/images/services/valoracion-gerontologica.jpg"
+}

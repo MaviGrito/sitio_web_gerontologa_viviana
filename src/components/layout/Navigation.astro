@@ -54,178 +54,52 @@ function isActiveLink(href: string, currentPath: string): boolean {
   </div>
 
   <!-- Mobile Navigation Button -->
-  <button
-    id="mobile-menu-toggle"
-    class="md:hidden flex items-center justify-center w-10 h-10 rounded-md text-primary-dark hover:text-accent hover:bg-light/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-    aria-expanded="false"
-    aria-controls="mobile-menu"
-    aria-label="Abrir menú de navegación"
-    type="button"
-  >
-    <!-- Hamburger Icon -->
-    <svg
-      id="hamburger-icon"
-      class="w-6 h-6"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
+  <div class="md:hidden">
+    <input type="checkbox" id="mobile-menu-checkbox" class="hidden" />
+    <label 
+      for="mobile-menu-checkbox" 
+      class="flex items-center justify-center w-10 h-10 rounded-md text-primary-dark hover:text-accent hover:bg-light/20 transition-colors duration-200 cursor-pointer"
+      aria-label="Abrir menú de navegación"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      ></path>
-    </svg>
-    
-    <!-- Close Icon (hidden by default) -->
-    <svg
-      id="close-icon"
-      class="w-6 h-6 hidden"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M6 18L18 6M6 6l12 12"
-      ></path>
-    </svg>
-  </button>
+      <!-- Hamburger Icon -->
+      <svg
+        class="hamburger-icon w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        ></path>
+      </svg>
+    </label>
 
-  <!-- Mobile Navigation Menu -->
-  <div
-    id="mobile-menu"
-    class="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-light/30 md:hidden hidden z-50"
-    role="menu"
-    aria-labelledby="mobile-menu-toggle"
-  >
-    <div class="px-4 py-6 space-y-4">
-      {navigationLinks.map((link) => (
-        <a
-          href={link.href}
-          role="menuitem"
-          aria-label={link.ariaLabel}
-          class={`
-            mobile-nav-link
-            block px-4 py-3 text-lg font-body rounded-md transition-colors duration-200
-            ${isActiveLink(link.href, currentPath)
-              ? 'text-accent bg-light/20 font-semibold'
-              : 'text-primary-dark hover:text-accent hover:bg-light/10'
-            }
-          `}
-        >
-          {link.label}
-        </a>
-      ))}
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-menu-container">
+      <div class="mobile-menu-content bg-white shadow-lg border border-light/30 rounded-lg mt-2 py-4">
+        {navigationLinks.map((link) => (
+          <a
+            href={link.href}
+            class={`
+              mobile-nav-link
+              block px-6 py-3 text-lg font-body transition-colors duration-200 hover:bg-light/10
+              ${isActiveLink(link.href, currentPath)
+                ? 'text-accent bg-light/20 font-semibold'
+                : 'text-primary-dark hover:text-accent'
+              }
+            `}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
     </div>
   </div>
 </nav>
-
-<script>
-  // Mobile menu functionality with event listeners
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing mobile menu...');
-    
-    let isMobileMenuOpen = false;
-    
-    const menu = document.getElementById('mobile-menu');
-    const button = document.getElementById('mobile-menu-toggle');
-    const hamburgerIcon = document.getElementById('hamburger-icon');
-    const closeIcon = document.getElementById('close-icon');
-    
-    console.log('Mobile menu elements found:', { menu, button, hamburgerIcon, closeIcon });
-    
-    if (!menu || !button || !hamburgerIcon || !closeIcon) {
-      console.error('Some mobile menu elements not found');
-      return;
-    }
-
-    function toggleMobileMenu() {
-      console.log('Toggle mobile menu called, current state:', isMobileMenuOpen);
-      
-      isMobileMenuOpen = !isMobileMenuOpen;
-      
-      if (isMobileMenuOpen) {
-        // Show menu
-        menu.classList.remove('hidden');
-        menu.classList.add('block');
-        hamburgerIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
-        button.setAttribute('aria-expanded', 'true');
-        button.setAttribute('aria-label', 'Cerrar menú de navegación');
-        document.body.style.overflow = 'hidden';
-        console.log('Menu opened');
-      } else {
-        // Hide menu
-        menu.classList.add('hidden');
-        menu.classList.remove('block');
-        hamburgerIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-        button.setAttribute('aria-expanded', 'false');
-        button.setAttribute('aria-label', 'Abrir menú de navegación');
-        document.body.style.overflow = '';
-        console.log('Menu closed');
-      }
-    }
-
-    function closeMobileMenu() {
-      console.log('Close mobile menu called');
-      if (isMobileMenuOpen) {
-        toggleMobileMenu();
-      }
-    }
-
-    // Add click event listener to button
-    button.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log('Button clicked!');
-      toggleMobileMenu();
-    });
-
-    // Add click event listeners to mobile nav links
-    const mobileNavLinks = menu.querySelectorAll('.mobile-nav-link');
-    mobileNavLinks.forEach(function(link) {
-      link.addEventListener('click', function() {
-        console.log('Nav link clicked');
-        closeMobileMenu();
-      });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-      if (isMobileMenuOpen && 
-          !menu.contains(event.target) && 
-          !button.contains(event.target)) {
-        console.log('Clicked outside menu');
-        closeMobileMenu();
-      }
-    });
-
-    // Close menu on escape key
-    document.addEventListener('keydown', function(event) {
-      if (event.key === 'Escape' && isMobileMenuOpen) {
-        console.log('Escape key pressed');
-        closeMobileMenu();
-      }
-    });
-
-    // Handle window resize - close mobile menu if switching to desktop
-    window.addEventListener('resize', function() {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) {
-        console.log('Window resized to desktop');
-        closeMobileMenu();
-      }
-    });
-
-    console.log('Mobile menu initialized successfully');
-  });
-</script>
 
 <style>
   /* Navigation styles */
@@ -262,48 +136,105 @@ function isActiveLink(href: string, currentPath: string): boolean {
     transform: scaleX(1);
   }
 
-  /* Mobile menu button */
-  #mobile-menu-toggle {
-    position: relative;
-    z-index: 70;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+  /* Mobile menu using CSS only */
+  #mobile-menu-checkbox {
+    display: none;
   }
 
-  #mobile-menu-toggle:hover {
-    transform: scale(1.05);
-  }
-
-  /* Mobile menu */
-  #mobile-menu {
+  .mobile-menu-container {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     z-index: 9999;
-    background-color: white;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+  }
+
+  /* Show mobile menu when checkbox is checked */
+  #mobile-menu-checkbox:checked ~ .mobile-menu-container {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Mobile menu content styling */
+  .mobile-menu-content {
+    background: white;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
-    border-right: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+
+  /* Mobile nav links */
+  .mobile-nav-link {
+    display: block;
+    padding: 12px 24px;
+    text-decoration: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 0 0 8px 8px;
   }
 
-  /* Force show mobile menu when not hidden */
-  #mobile-menu:not(.hidden) {
-    display: block !important;
-    visibility: visible !important;
+  .mobile-nav-link:last-child {
+    border-bottom: none;
   }
 
-  /* Force hide mobile menu when hidden */
-  #mobile-menu.hidden {
-    display: none !important;
-    visibility: hidden !important;
+  .mobile-nav-link:hover {
+    background-color: rgba(3, 166, 60, 0.1);
   }
 
-  /* Mobile menu animation */
-  #mobile-menu {
-    transition: all 0.2s ease-in-out;
+  /* Hide mobile menu on desktop */
+  @media (min-width: 768px) {
+    .mobile-menu-container {
+      display: none !important;
+    }
+  }
+
+  /* Ensure mobile menu button is clickable */
+  label[for="mobile-menu-checkbox"] {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  label[for="mobile-menu-checkbox"]:hover {
+    transform: scale(1.05);
+  }
+
+  /* Close menu when clicking on a link */
+  .mobile-nav-link {
+    position: relative;
+  }
+
+  .mobile-nav-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
   }
 </style>
+
+<script>
+  // Simple script to close mobile menu when clicking on a link
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const checkbox = document.getElementById('mobile-menu-checkbox');
+    
+    mobileNavLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Uncheck the checkbox to close the menu
+        if (checkbox) {
+          checkbox.checked = false;
+        }
+      });
+    });
+  });
+</script>

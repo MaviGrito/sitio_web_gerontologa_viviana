@@ -7,7 +7,8 @@ export const SITE_CONFIG: SiteConfig = {
   author: {
     name: siteConfigData.author.name,
     title: siteConfigData.author.title,
-    credentials: ['Gerontóloga', 'Especialista en Envejecimiento Activo'],
+    headerTitle: siteConfigData.author.headerTitle,
+    credentials: ['Gerontóloga', 'Experta en Envejecimiento, Vejez y Personas Mayores'],
     bio: siteConfigData.author.bio,
     photo: siteConfigData.author.photo
   },
@@ -28,10 +29,10 @@ export const SITE_CONFIG: SiteConfig = {
 };
 
 export const CATEGORIES: CategoryInfo = {
-  geriatria: 'Geriatría',
-  nutricion: 'Nutrición',
-  ejercicio: 'Ejercicio',
-  'salud-mental': 'Salud Mental'
+  geriatria: 'Gerontología',
+  nutricion: 'Demencias',
+  ejercicio: 'Bienestar del Cuidador',
+  'salud-mental': 'Educación'
 } as const;
 
 // Navigation items

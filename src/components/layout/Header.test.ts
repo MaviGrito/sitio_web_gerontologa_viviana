@@ -4,7 +4,7 @@ import { SITE_CONFIG } from '../../utils/constants';
 describe('Header Component', () => {
   it('should have correct logo text from site config', () => {
     const logoText = SITE_CONFIG.author.name;
-    const logoSubtext = SITE_CONFIG.author.title;
+    const logoSubtext = SITE_CONFIG.author.headerTitle;
     
     expect(logoText).toBe('Dr. [Name]');
     expect(logoSubtext).toBe('Gerontólogo');
@@ -30,7 +30,7 @@ describe('Header Component', () => {
 
   it('should have proper accessibility attributes', () => {
     // Test that the component would have proper ARIA labels
-    const logoAriaLabel = `Ir al inicio - ${SITE_CONFIG.author.name}, ${SITE_CONFIG.author.title}`;
+    const logoAriaLabel = `Ir al inicio - ${SITE_CONFIG.author.name}, ${SITE_CONFIG.author.headerTitle}`;
     const whatsappAriaLabel = 'Contactar por WhatsApp para agendar consulta';
     const phoneAriaLabel = `Llamar al ${SITE_CONFIG.contact.phone}`;
     

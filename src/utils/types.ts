@@ -42,6 +42,7 @@ export interface SiteConfig {
   author: {
     name: string;
     title: string;
+    headerTitle: string;
     credentials: string[];
     bio: string;
     photo: string;

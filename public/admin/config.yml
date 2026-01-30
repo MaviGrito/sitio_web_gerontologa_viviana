@@ -142,7 +142,8 @@ collections:
             widget: "object"
             fields:
               - {label: "Nombre", name: "name", widget: "string"}
-              - {label: "Título Profesional", name: "title", widget: "string"}
+              - {label: "Título Profesional Completo", name: "title", widget: "string", hint: "Título completo que aparece en la página de inicio y footer"}
+              - {label: "Título del Header", name: "headerTitle", widget: "string", hint: "Título corto que aparece en la parte superior de todas las páginas"}
               - {label: "Biografía", name: "bio", widget: "text"}
               - {label: "Foto", name: "photo", widget: "image"}
           - label: "Contacto"

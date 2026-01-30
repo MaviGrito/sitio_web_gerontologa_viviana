@@ -62,10 +62,10 @@ const logoSubtext = SITE_CONFIG.author.headerTitle;
           
           <!-- Logo Text -->
           <div class="logo-text block">
-            <div class="logo-name text-base sm:text-lg lg:text-xl font-heading font-extrabold text-primary-dark group-hover:text-accent transition-colors duration-200">
+            <div class="logo-name text-xs sm:text-lg lg:text-xl font-heading font-extrabold text-primary-dark group-hover:text-accent transition-colors duration-200 leading-tight">
               {logoText}
             </div>
-            <div class="logo-subtitle text-sm sm:text-sm lg:text-base font-body text-primary/80 group-hover:text-accent/80 transition-colors duration-200">
+            <div class="logo-subtitle text-xs sm:text-sm lg:text-base font-body text-primary/80 group-hover:text-accent/80 transition-colors duration-200 leading-tight">
               {logoSubtext}
             </div>
           </div>
@@ -188,11 +188,7 @@ const logoSubtext = SITE_CONFIG.author.headerTitle;
   }
 
   /* Responsive logo text */
-  @media (max-width: 640px) {
-    .logo-text {
-      display: none;
-    }
-  }
+  /* Logo text is now visible on all screen sizes */
 
   /* Fixed header adjustments */
   .header.fixed {

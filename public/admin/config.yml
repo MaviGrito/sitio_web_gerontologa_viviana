@@ -21,6 +21,15 @@ locale: 'es'
 # Enable editorial workflow (draft/review/ready)
 publish_mode: editorial_workflow
 
+# Editor settings for better stability
+editor:
+  preview: false
+
+# Slug settings
+slug:
+  encoding: "ascii"
+  clean_accents: true
+
 collections:
   - name: "blog"
     label: "Publicaciones"
@@ -111,7 +120,10 @@ collections:
           label: "Contenido", 
           name: "body", 
           widget: "markdown",
-          hint: "Contenido principal del artículo en formato Markdown"
+          hint: "Contenido principal del artículo en formato Markdown",
+          modes: ["rich_text", "raw"],
+          editor_components: [],
+          show_raw: true
         }
 
   # Configuration collection for site settings

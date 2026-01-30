@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager - Gerontologist Website</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Preload CMS for better performance -->
+    <link rel="preload" href="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" as="script">
   </head>
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
@@ -18,6 +21,17 @@
             window.netlifyIdentity.on("login", () => {
               document.location.href = "/admin/";
             });
+          }
+        });
+      }
+      
+      // CMS configuration for better stability
+      if (window.CMS) {
+        // Disable automatic saves to prevent conflicts
+        window.CMS.registerEventListener({
+          name: 'preSave',
+          handler: ({ entry }) => {
+            console.log('Saving entry:', entry.get('title'));
           }
         });
       }

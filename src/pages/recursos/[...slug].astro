@@ -45,7 +45,7 @@ const otherPosts = allPosts
   .slice(0, 3); // Take first 3
 
 // Social sharing URLs
-const currentUrl = `${SITE_CONFIG.url || 'https://your-site.com'}/recursos/${entry.slug}`;
+const currentUrl = `${SITE_CONFIG.url}/recursos/${entry.slug}`;
 const shareText = `${entry.data.title} - ${entry.data.description}`;
 const shareUrls = {
   facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`,

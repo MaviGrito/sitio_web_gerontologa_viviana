@@ -56,7 +56,7 @@ const services = [
                     <img
                       src={service.image || '/images/services/default-service.jpg'}
                       alt={`Imagen representativa de ${service.title}`}
-                      class="w-full h-full object-cover"
+                      class="w-full h-full object-contain"
                       loading="lazy"
                     />
                   </div>
@@ -95,14 +95,7 @@ const services = [
                       </p>
                     </div>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 items-start">
-                      <div class="text-sm font-body text-gray-500">
-                        <span class="font-semibold">Duración:</span> {service.duration}
-                      </div>
-                      <div class="text-sm font-body text-gray-500">
-                        <span class="font-semibold">Precio:</span> {service.price}
-                      </div>
-                    </div>
+
                   </div>
                 </div>
                 

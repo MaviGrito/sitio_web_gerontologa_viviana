@@ -161,3 +161,9 @@ collections:
               - {label: "Instagram", name: "instagram", widget: "string", required: false}
               - {label: "Facebook", name: "facebook", widget: "string", required: false}
               - {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
+          - label: "SEO y Posicionamiento"
+            name: "seo"
+            widget: "object"
+            fields:
+              - {label: "Palabras Clave", name: "keywords", widget: "list", hint: "Palabras clave para aparecer en búsquedas de Google (ej: gerontóloga medellín)"}
+              - {label: "Imagen para Redes Sociales", name: "ogImage", widget: "image", hint: "Imagen que aparece cuando compartes el sitio en redes sociales"}

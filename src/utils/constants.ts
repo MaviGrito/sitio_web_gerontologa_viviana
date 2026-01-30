@@ -23,7 +23,33 @@ export const SITE_CONFIG: SiteConfig = {
     linkedin: siteConfigData.social.linkedin
   },
   seo: {
-    keywords: ['gerontóloga', 'gerontología', 'adulto mayor', 'envejecimiento activo', 'consulta gerontológica', 'Viviana Tonguino'],
+    keywords: [
+      'gerontóloga medellín', 
+      'gerontólogo medellín', 
+      'gerontología medellín',
+      'cuidado personas mayores medellín',
+      'cuidado ancianos medellín',
+      'estimulación cognitiva medellín',
+      'centro día medellín',
+      'área metropolitana valle de aburrá',
+      'capacitación cuidadores medellín',
+      'asesoría familiar personas mayores',
+      'intervención demencias medellín',
+      'alzheimer medellín',
+      'envejecimiento activo medellín',
+      'valoración gerontológica medellín',
+      'consulta gerontológica medellín',
+      'adulto mayor medellín',
+      'tercera edad medellín',
+      'gerontóloga antioquia',
+      'cuidado integral personas mayores',
+      'planes intervención gerontológica',
+      'asesorías empresariales gerontología',
+      'viviana tonguino guerrero',
+      'gerontóloga profesional medellín',
+      'especialista envejecimiento medellín',
+      'atención domiciliaria personas mayores'
+    ],
     ogImage: '/images/og-image.jpg'
   }
 };

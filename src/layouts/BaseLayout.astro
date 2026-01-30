@@ -135,23 +135,53 @@ const schema = generateSchemaOrg(schemaType, schemaData);
       "@type": "MedicalOrganization",
       "name": SITE_CONFIG.title,
       "description": SITE_CONFIG.description,
-      "url": "https://your-domain.com",
+      "url": "https://gerontologaviviana.com",
       "telephone": SITE_CONFIG.contact.phone,
       "email": SITE_CONFIG.contact.email,
       "address": {
         "@type": "PostalAddress",
+        "addressLocality": "Medellín",
+        "addressRegion": "Antioquia",
+        "addressCountry": "Colombia",
         "streetAddress": SITE_CONFIG.contact.address
       },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Medellín"
+        },
+        {
+          "@type": "Place",
+          "name": "Área Metropolitana del Valle de Aburrá"
+        }
+      ],
       "sameAs": [
         SITE_CONFIG.social.instagram,
-        SITE_CONFIG.social.facebook,
         SITE_CONFIG.social.linkedin
       ],
-      "medicalSpecialty": "Gerontology",
+      "medicalSpecialty": [
+        "Gerontology",
+        "Geriatrics",
+        "Cognitive Stimulation",
+        "Dementia Care"
+      ],
+      "serviceType": [
+        "Valoración Gerontológica",
+        "Intervención en Demencias",
+        "Asesorías Familiares",
+        "Estimulación Cognitiva",
+        "Capacitación para Cuidadores"
+      ],
       "founder": {
         "@type": "Person",
         "name": SITE_CONFIG.author.name,
-        "jobTitle": SITE_CONFIG.author.title
+        "jobTitle": SITE_CONFIG.author.title,
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Medellín",
+          "addressRegion": "Antioquia",
+          "addressCountry": "Colombia"
+        }
       }
     })} />
     

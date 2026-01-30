@@ -20,7 +20,7 @@ export function generateSEO({
   author = SITE_CONFIG.author.name
 }: SEOProps = {}) {
   const fullTitle = title ? `${title} | ${SITE_CONFIG.title}` : SITE_CONFIG.title;
-  const fullUrl = `https://your-domain.com${url}`;
+  const fullUrl = `https://gerontologaviviana.com${url}`;
 
   return {
     title: fullTitle,
@@ -93,7 +93,7 @@ export function generateSchemaOrg(type: 'Person' | 'Article' | 'WebSite', data: 
         '@type': 'WebSite',
         name: SITE_CONFIG.title,
         description: SITE_CONFIG.description,
-        url: 'https://your-domain.com',
+        url: 'https://gerontologaviviana.com',
         author: {
           '@type': 'Person',
           name: SITE_CONFIG.author.name

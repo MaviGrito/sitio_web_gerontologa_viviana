@@ -1,6 +1,6 @@
 {
   "title": "Gerontóloga Viviana Tonguino Guerrero",
-  "description": "Gerontóloga apasionada y comprometida con el bienestar y la calidad de vida de las personas mayores. Mi enfoque se centra en comprender las complejidades del proceso de envejecimiento y abordar las necesidades físicas, cognitivas, emocionales y sociales de la población mayor. Creo firmemente en la importancia de fomentar la autonomía y la dignidad en todas las etapas de la vida, y mi trabajo se orienta hacia ese objetivo.",
+  "description": "Gerontóloga profesional en Medellín y área metropolitana del Valle de Aburrá. Especialista en cuidado integral de personas mayores, estimulación cognitiva, intervención en demencias y Alzheimer. Ofrezco valoración gerontológica, asesorías familiares, capacitación para cuidadores y planes de intervención personalizados. Atención domiciliaria y consultas especializadas en gerontología para el bienestar y calidad de vida de adultos mayores en Antioquia.",
   "url": "https://gerontologaviviana.com",
   "author": {
     "name": "VIVIANA TONGUINO GUERRERO",
@@ -18,5 +18,35 @@
   "social": {
     "instagram": "https://www.instagram.com/vivianatg_gerontologa",
     "linkedin": "https://www.linkedin.com/in/viviana-tonguino-guerrero"
+  },
+  "seo": {
+    "keywords": [
+      "gerontóloga medellín", 
+      "gerontólogo medellín", 
+      "gerontología medellín",
+      "cuidado personas mayores medellín",
+      "cuidado ancianos medellín",
+      "estimulación cognitiva medellín",
+      "centro día medellín",
+      "área metropolitana valle de aburrá",
+      "capacitación cuidadores medellín",
+      "asesoría familiar personas mayores",
+      "intervención demencias medellín",
+      "alzheimer medellín",
+      "envejecimiento activo medellín",
+      "valoración gerontológica medellín",
+      "consulta gerontológica medellín",
+      "adulto mayor medellín",
+      "tercera edad medellín",
+      "gerontóloga antioquia",
+      "cuidado integral personas mayores",
+      "planes intervención gerontológica",
+      "asesorías empresariales gerontología",
+      "viviana tonguino guerrero",
+      "gerontóloga profesional medellín",
+      "especialista envejecimiento medellín",
+      "atención domiciliaria personas mayores"
+    ],
+    "ogImage": "/images/og-image.jpg"
   }
 }

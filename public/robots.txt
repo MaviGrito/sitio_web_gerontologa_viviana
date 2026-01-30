@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://gerontologaviviana.com/sitemap.xml
+Sitemap: https://www.gerontologaviviana.com/sitemap.xml
 
 # Disallow admin areas
 Disallow: /admin/

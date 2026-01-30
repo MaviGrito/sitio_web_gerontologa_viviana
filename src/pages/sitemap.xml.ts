@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
 export const GET: APIRoute = async ({ site }) => {
-  const baseUrl = site?.toString() || 'https://gerontologaviviana.com';
+  const baseUrl = 'https://www.gerontologaviviana.com';
   
   // Get all blog posts
   const blogPosts = await getCollection('blog', ({ data }) => {

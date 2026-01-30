@@ -6,6 +6,6 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react()],
-  site: 'https://your-domain.com', // Update this with the actual domain
+  site: 'https://sitiowebgerontologavivianatonguino.netlify.app',
   output: 'static'
 });

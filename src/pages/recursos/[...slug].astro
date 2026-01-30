@@ -1,40 +1,30 @@
 ---
+import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/layout/Header.astro';
 import { SITE_CONFIG } from '../../utils/constants';
-import { getCollection } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
+import { formatDate } from '../../utils/content';
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
-  
-  return blogEntries
-    .filter(entry => !entry.data.draft)
-    .map(entry => ({
-      params: { slug: entry.slug },
-      props: { entry }
-    }));
+  return blogEntries.map(entry => ({
+    params: { slug: entry.slug }, props: { entry },
+  }));
+}
+
+type Props = {
+  entry: CollectionEntry<'blog'>;
 };
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
-// Format date function
-function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('es-ES', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  }).format(date);
-}
-
-// Category labels
+// Category labels mapping
 const categoryLabels = {
-  'geriatria': 'Geriatría',
   'gerontologia': 'Gerontología',
-  'nutricion': 'Nutrición',
-  'ejercicio': 'Ejercicio',
-  'salud-mental': 'Salud Mental'
+  'nutricion': 'Demencias',
+  'ejercicio': 'Bienestar del Cuidador',
+  'salud-mental': 'Educación'
 };
 
 // Get random articles (excluding current article)
@@ -59,9 +49,18 @@ const shareUrls = {
   title={`${entry.data.title} - ${SITE_CONFIG.title}`}
   description={entry.data.description}
   image={entry.data.featuredImage}
+  url={`/recursos/${entry.slug}`}
   type="article"
   publishDate={entry.data.publishDate}
   author={entry.data.author}
+  schemaType="Article"
+  schemaData={{
+    title: entry.data.title,
+    description: entry.data.description,
+    image: entry.data.featuredImage,
+    publishDate: entry.data.publishDate,
+    author: entry.data.author
+  }}
 >
   <!-- Header -->
   <Header currentPath="/recursos" />
@@ -98,9 +97,6 @@ const shareUrls = {
                 id="gallery-prev"
               >
                 <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-              </button>
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
               </button>
@@ -182,16 +178,6 @@ const shareUrls = {
               </div>
             </div>
           </div>
-                  />
-                ))}
-              </div>
-              
-              <!-- Image Counter -->
-              <div class="gallery-counter absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm z-10">
-                <span id="current-image">1</span> / {entry.data.gallery.length}
-              </div>
-            </div>
-          </div>
         ) : (
           <!-- Single Featured Image -->
           <div class="single-image-container aspect-video lg:aspect-[21/9] overflow-hidden bg-gray-100 flex items-center justify-center">
@@ -212,93 +198,78 @@ const shareUrls = {
           <div class="max-w-4xl mx-auto">
             <!-- Category Badge -->
             <div class="mb-4">
-              <span class={`inline-block px-4 py-2 text-sm font-semibold rounded-full ${
-                entry.data.category === 'geriatria' ? 'bg-primary text-white' :
-                entry.data.category === 'nutricion' ? 'bg-green-600 text-white' :
-                entry.data.category === 'ejercicio' ? 'bg-blue-600 text-white' :
-                entry.data.category === 'salud-mental' ? 'bg-purple-600 text-white' :
-                'bg-gray-600 text-white'
+              <span class={`inline-block px-3 py-1 text-sm font-semibold rounded-full ${
+                entry.data.category === 'gerontologia' ? 'bg-primary/10 text-primary' :
+                entry.data.category === 'nutricion' ? 'bg-green-100 text-green-800' :
+                entry.data.category === 'ejercicio' ? 'bg-blue-100 text-blue-800' :
+                entry.data.category === 'salud-mental' ? 'bg-purple-100 text-purple-800' :
+                'bg-gray-100 text-gray-800'
               }`}>
                 {categoryLabels[entry.data.category] || entry.data.category}
               </span>
             </div>
             
             <!-- Title -->
-            <h1 class="text-3xl lg:text-5xl font-heading font-extrabold text-primary-dark mb-6 leading-tight">
+            <h1 class="text-3xl lg:text-4xl font-heading font-extrabold text-primary-dark mb-4">
               {entry.data.title}
             </h1>
             
-            <!-- Meta Information -->
-            <div class="flex flex-wrap items-center gap-4 text-gray-600">
+            <!-- Meta Info -->
+            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-6">
               <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a2 2 0 012-2h4a2 2 0 012 2v4m-6 0V6a2 2 0 012-2h4a2 2 0 012 2v1m-6 0h8m-9 0a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V8a1 1 0 00-1-1H7z"/>
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
                 {formatDate(entry.data.publishDate)}
               </div>
               
               <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
                 {entry.data.author}
               </div>
-              
-              {entry.data.tags && entry.data.tags.length > 0 && (
-                <div class="flex items-center">
-                  <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
-                  </svg>
-                  {entry.data.tags.slice(0, 3).join(', ')}
-                </div>
-              )}
             </div>
+            
+            <!-- Description -->
+            <p class="text-lg text-gray-600 font-body leading-relaxed">
+              {entry.data.description}
+            </p>
           </div>
         </div>
       </section>
 
       <!-- Article Content -->
-      <section class="article-content py-16 bg-white">
+      <section class="article-content py-12 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="max-w-4xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
               
               <!-- Main Content -->
-              <div class="lg:col-span-3">
-                <!-- Article Description -->
-                {entry.data.excerpt && (
-                  <div class="article-excerpt bg-primary-light/10 rounded-2xl p-6 mb-8">
-                    <p class="text-lg font-body text-gray-700 leading-relaxed">
-                      {entry.data.excerpt}
-                    </p>
-                  </div>
-                )}
-                
-                <!-- Article Body -->
+              <div class="lg:col-span-2">
                 <div class="prose prose-lg max-w-none">
                   <Content />
                 </div>
                 
-                <!-- Other Articles Section -->
-                <div class="other-articles mt-12 pt-8 border-t border-gray-200">
-                  <h3 class="text-2xl font-heading font-bold text-primary-dark mb-6 text-center">
-                    Otros Artículos
+                <!-- Related Articles -->
+                <div class="related-articles mt-16 pt-8 border-t border-gray-200">
+                  <h3 class="text-2xl font-heading font-bold text-primary-dark mb-6">
+                    Artículos Relacionados
                   </h3>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {otherPosts.map((post) => (
-                      <article class="article-card bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                        <!-- Featured Image -->
-                        <div class="article-image aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
+                      <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                        <div class="aspect-video overflow-hidden bg-gray-100">
                           <img
                             src={post.data.featuredImage || '/images/blog/default-article.jpg'}
                             alt={post.data.title}
-                            class="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-105"
+                            class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                             loading="lazy"
                           />
                         </div>
                         
-                        <!-- Article Content -->
-                        <div class="article-content p-6">
+                        <div class="p-6">
                           <!-- Category Badge -->
                           <div class="mb-3">
                             <span class={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
@@ -345,19 +316,6 @@ const shareUrls = {
                         </div>
                       </article>
                     ))}
-                  </div>
-                  
-                  <!-- View All Articles Button -->
-                  <div class="text-center mt-8">
-                    <a
-                      href="/recursos"
-                      class="inline-flex items-center px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors duration-200"
-                    >
-                      Ver Todos los Artículos
-                      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                      </svg>
-                    </a>
                   </div>
                 </div>
                 
@@ -452,341 +410,9 @@ const shareUrls = {
         </div>
       </section>
 
-      <!-- Related Articles -->
-      {otherPosts.length > 0 && (
-        <section class="related-articles py-16 bg-gray-50">
-          <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-6xl mx-auto">
-              <h2 class="text-3xl font-heading font-extrabold text-primary-dark mb-8 text-center">
-                Más Artículos
-              </h2>
-              
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {otherPosts.map((post) => (
-                  <article class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                    <div class="aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
-                      <img
-                        src={post.data.featuredImage || '/images/blog/default-article.jpg'}
-                        alt={post.data.title}
-                        class="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                    </div>
-                    
-                    <div class="p-6">
-                      <h3 class="text-lg font-heading font-bold text-primary-dark mb-2 line-clamp-2">
-                        <a 
-                          href={`/recursos/${post.slug}`}
-                          class="hover:text-primary transition-colors duration-200"
-                        >
-                          {post.data.title}
-                        </a>
-                      </h3>
-                      
-                      <p class="text-gray-600 text-sm mb-4 line-clamp-2">
-                        {post.data.excerpt || post.data.description}
-                      </p>
-                      
-                      <a 
-                        href={`/recursos/${post.slug}`}
-                        class="text-primary font-semibold text-sm hover:text-primary-dark transition-colors duration-200"
-                      >
-                        Leer más →
-                      </a>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <!-- Navigation -->
-      <section class="article-navigation py-8 bg-white border-t border-gray-200">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="max-w-4xl mx-auto">
-            <div class="flex justify-between items-center">
-              <a
-                href="/recursos"
-                class="inline-flex items-center text-primary hover:text-primary-dark transition-colors duration-200"
-              >
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                </svg>
-                Volver a Recursos
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </article>
   </main>
 </BaseLayout>
-
-<style>
-  /* Prose styles for article content */
-  .prose {
-    @apply text-gray-700 leading-relaxed;
-  }
-  
-  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-    @apply font-heading font-bold text-primary-dark mt-8 mb-4;
-  }
-  
-  .prose h1 { @apply text-3xl; }
-  .prose h2 { @apply text-2xl; }
-  .prose h3 { @apply text-xl; }
-  .prose h4 { @apply text-lg; }
-  
-  .prose p {
-    @apply mb-6;
-  }
-  
-  .prose ul, .prose ol {
-    @apply mb-6 pl-6;
-  }
-  
-  .prose li {
-    @apply mb-2;
-  }
-  
-  .prose blockquote {
-    @apply border-l-4 border-primary pl-6 italic text-gray-600 my-6;
-  }
-  
-  .prose strong {
-    @apply font-bold text-primary-dark;
-  }
-  
-  .prose a {
-    @apply text-primary hover:text-primary-dark underline;
-  }
-  
-  .prose img {
-    @apply rounded-lg shadow-md my-8;
-  }
-  
-  /* Line clamp utilities */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  /* Article cards */
-  .article-card {
-    transition: all 0.3s ease;
-  }
-  
-  .article-card:hover {
-    transform: translateY(-4px);
-  }
-  
-  /* Gallery styles */
-  .gallery-container {
-    position: relative;
-  }
-  
-  .gallery-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.3s ease-in-out;
-    transform: translateX(0%);
-  }
-  
-  .gallery-slide {
-    flex: 0 0 100%;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .gallery-btn {
-    z-index: 20;
-    pointer-events: auto;
-  }
-  
-  .gallery-btn:hover {
-    transform: translateY(-50%) scale(1.1);
-  }
-  
-  .gallery-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: translateY(-50%) scale(1);
-  }
-  
-  .gallery-indicator {
-    cursor: pointer;
-    z-index: 20;
-    pointer-events: auto;
-  }
-  
-  .gallery-indicator.active {
-    background-color: white !important;
-  }
-  
-  .gallery-counter {
-    z-index: 20;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .gallery-btn {
-      padding: 8px;
-    }
-    
-    .gallery-btn svg {
-      width: 16px;
-      height: 16px;
-    }
-    
-    .gallery-indicators {
-      bottom: 12px;
-    }
-    
-    .gallery-indicator {
-      width: 8px;
-      height: 8px;
-    }
-    
-    .gallery-counter {
-      top: 12px;
-      right: 12px;
-      font-size: 12px;
-    }
-  }
-</style>
-
-<script>
-  // Gallery functionality
-  document.addEventListener('DOMContentLoaded', function() {
-    // Get elements
-    const track = document.getElementById('gallery-track');
-    const prevBtn = document.getElementById('gallery-prev');
-    const nextBtn = document.getElementById('gallery-next');
-    const indicators = document.querySelectorAll('.gallery-indicator');
-    const currentImageSpan = document.getElementById('current-image');
-    
-    // Check if we have a gallery
-    if (!track || !prevBtn || !nextBtn || indicators.length === 0) {
-      return;
-    }
-    
-    // Get total images
-    const totalImages = parseInt(track.dataset.total) || indicators.length;
-    
-    if (totalImages <= 1) {
-      return;
-    }
-    
-    // State
-    let currentIndex = 0;
-    
-    // Update gallery function
-    function updateGallery() {
-      // Move track
-      const translateX = -currentIndex * 100;
-      track.style.transform = `translateX(${translateX}%)`;
-      
-      // Update indicators
-      indicators.forEach((indicator, index) => {
-        if (index === currentIndex) {
-          indicator.classList.add('active');
-          indicator.style.backgroundColor = 'white';
-        } else {
-          indicator.classList.remove('active');
-          indicator.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-        }
-      });
-      
-      // Update counter
-      if (currentImageSpan) {
-        currentImageSpan.textContent = (currentIndex + 1).toString();
-      }
-      
-      // Update button states
-      prevBtn.disabled = currentIndex === 0;
-      nextBtn.disabled = currentIndex === totalImages - 1;
-    }
-    
-    // Event listeners
-    prevBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateGallery();
-      }
-    });
-    
-    nextBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (currentIndex < totalImages - 1) {
-        currentIndex++;
-        updateGallery();
-      }
-    });
-    
-    // Indicator clicks
-    indicators.forEach((indicator, index) => {
-      indicator.addEventListener('click', function(e) {
-        e.preventDefault();
-        currentIndex = index;
-        updateGallery();
-      });
-    });
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        currentIndex--;
-        updateGallery();
-      } else if (e.key === 'ArrowRight' && currentIndex < totalImages - 1) {
-        currentIndex++;
-        updateGallery();
-      }
-    });
-    
-    // Touch support
-    let startX = 0;
-    let endX = 0;
-    
-    track.addEventListener('touchstart', function(e) {
-      startX = e.touches[0].clientX;
-    });
-    
-    track.addEventListener('touchend', function(e) {
-      endX = e.changedTouches[0].clientX;
-      const diff = startX - endX;
-      
-      if (Math.abs(diff) > 50) {
-        if (diff > 0 && currentIndex < totalImages - 1) {
-          currentIndex++;
-          updateGallery();
-        } else if (diff < 0 && currentIndex > 0) {
-          currentIndex--;
-          updateGallery();
-        }
-      }
-    });
-    
-    // Initialize gallery
-    updateGallery();
-  });
-</script>
-  }
-</style>
 
 <script>
   // Enhanced Gallery with Touch Support and Fullscreen

@@ -2,16 +2,15 @@
   "id": "asesorias-familiares",
   "icon": "users",
   "title": "Asesorías Familiares",
-  "description": "Orientación y apoyo especializado para familias en el cuidado del adulto mayor.",
+  "description": "Orientación y apoyo especializado para familias en el cuidado de la persona mayor.",
   "benefits": [
-    "Orientación en el cuidado del adulto mayor",
+    "Orientación en el cuidado de personas mayores",
     "Estrategias de comunicación efectiva",
     "Manejo del estrés del cuidador",
-    "Recursos y redes de apoyo disponibles"
+    "Recursos y redes de apoyo disponibles",
+    "Bienestar integral del cuidador"
   ],
-  "detailedDescription": "Las asesorías familiares brindan orientación especializada a las familias sobre cómo cuidar de manera efectiva y amorosa a sus adultos mayores. Incluye estrategias para mejorar la comunicación, manejar situaciones difíciles, prevenir el síndrome del cuidador quemado y acceder a recursos comunitarios de apoyo.",
-  "duration": "75 minutos",
-  "price": "Consultar",
+  "detailedDescription": "Las asesorías familiares brindan orientación especializada a las familias sobre cómo cuidar de manera efectiva y amorosa a sus personas mayores. Incluye estrategias para mejorar la comunicación, manejar situaciones difíciles, prevenir el síndrome del cuidador quemado y acceder a recursos comunitarios de apoyo.",
   "order": 3,
   "active": true,
   "image": "/images/services/asesorias-familiares.jpg"

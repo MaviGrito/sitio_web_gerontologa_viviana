@@ -4,14 +4,13 @@
   "title": "Intervención en Demencias",
   "description": "Acompañamiento especializado para personas con demencia y sus familias.",
   "benefits": [
-    "Evaluación especializada en demencias",
-    "Estrategias de estimulación cognitiva",
+    "Plan de intervención en demencias",
+    "Estrategias de estimulación y rehabilitación cognitiva",
     "Apoyo emocional para la familia",
-    "Orientación en cuidados específicos"
+    "Orientación en cuidados específicos",
+    "Educación en demencias"
   ],
-  "detailedDescription": "La intervención en demencias ofrece un acompañamiento integral para personas que viven con demencia y sus familias. Incluye evaluación especializada, diseño de estrategias de estimulación cognitiva, orientación sobre cuidados específicos y apoyo emocional para enfrentar los desafíos que presenta esta condición.",
-  "duration": "90 minutos",
-  "price": "Consultar",
+  "detailedDescription": "La intervención en demencias ofrece un acompañamiento integral para personas que viven con demencia y sus familias. Incluye un plan especializado, diseño de estrategias de estimulación y rehabilitación cognitiva, orientación sobre cuidados específicos y apoyo emocional para enfrentar los desafíos que presenta esta condición.",
   "order": 4,
   "active": true,
   "image": "/images/services/intervencion-demencias.jpg"

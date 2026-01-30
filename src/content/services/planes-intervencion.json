@@ -1,17 +1,16 @@
 {
   "id": "planes-intervencion",
   "icon": "clipboard-list",
-  "title": "Planes de Intervención",
-  "description": "Diseño de estrategias personalizadas para promover el envejecimiento activo y saludable.",
+  "title": "Plan de Intervención",
+  "description": "El plan de intervención gerontológico es un documento personalizado que organiza: necesidades detectadas, objetivos de trabajo, acciones concretas, seguimiento y evaluación, fortalezas",
   "benefits": [
-    "Planes personalizados según necesidades individuales",
-    "Estrategias de promoción del envejecimiento activo",
-    "Intervenciones basadas en evidencia científica",
+    "Resumen de la valoración.",
+    "Objetivos por áreas (funcional, cognitiva, emocional, social).",
+    "Intervenciones personalizadas",
+    "Tiempos y frecuencia.",
     "Seguimiento y ajuste continuo del plan"
   ],
-  "detailedDescription": "Los planes de intervención gerontológica son estrategias integrales y personalizadas diseñadas para promover el bienestar y la calidad de vida del adulto mayor. Estos planes incluyen actividades físicas, cognitivas, sociales y de autocuidado, adaptadas a las capacidades y necesidades específicas de cada persona.",
-  "duration": "60 minutos",
-  "price": "Consultar",
+  "detailedDescription": "Los planes de intervención gerontológica son estrategias integrales y personalizadas diseñadas para promover el bienestar y la calidad de vida de la person mayor. Estos planes incluyen actividades físicas, cognitivas, sociales y de autocuidado, adaptadas a las capacidades y necesidades específicas de cada persona.",
   "order": 2,
   "active": true,
   "image": "/images/services/planes-intervencion.jpg"

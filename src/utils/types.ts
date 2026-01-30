@@ -39,6 +39,7 @@ export interface Service {
 export interface SiteConfig {
   title: string;
   description: string;
+  url: string;
   author: {
     name: string;
     title: string;

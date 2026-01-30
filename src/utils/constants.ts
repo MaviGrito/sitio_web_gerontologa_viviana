@@ -4,6 +4,7 @@ import siteConfigData from '../data/site-config.json';
 export const SITE_CONFIG: SiteConfig = {
   title: siteConfigData.title,
   description: siteConfigData.description,
+  url: siteConfigData.url,
   author: {
     name: siteConfigData.author.name,
     title: siteConfigData.author.title,

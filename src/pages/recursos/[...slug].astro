@@ -442,6 +442,7 @@ const shareUrls = {
     // Update gallery display
     function updateGallery() {
       const translateX = -currentIndex * 100;
+      galleryTrack.style.transition = 'transform 0.3s ease-out';
       galleryTrack.style.transform = `translateX(${translateX}%)`;
       
       // Update counter
@@ -492,27 +493,36 @@ const shareUrls = {
     galleryTrack.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
       isDragging = true;
+      galleryTrack.style.transition = 'none';
     }, { passive: true });
     
     galleryTrack.addEventListener('touchmove', (e) => {
       if (!isDragging) return;
-      e.preventDefault();
-    }, { passive: false });
+      const currentX = e.touches[0].clientX;
+      const diffX = currentX - startX;
+      const translateX = -currentIndex * 100 + (diffX / galleryTrack.offsetWidth) * 100;
+      galleryTrack.style.transform = `translateX(${translateX}%)`;
+    }, { passive: true });
     
     galleryTrack.addEventListener('touchend', (e) => {
       if (!isDragging) return;
       isDragging = false;
+      galleryTrack.style.transition = 'transform 0.3s ease-out';
       
       const endX = e.changedTouches[0].clientX;
       const diffX = startX - endX;
       const threshold = 50;
       
       if (Math.abs(diffX) > threshold) {
-        if (diffX > 0) {
+        if (diffX > 0 && currentIndex < totalImages - 1) {
           nextImage();
-        } else {
+        } else if (diffX < 0 && currentIndex > 0) {
           prevImage();
+        } else {
+          updateGallery();
         }
+      } else {
+        updateGallery();
       }
     }, { passive: true });
     

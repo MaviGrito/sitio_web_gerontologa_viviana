@@ -1,0 +1,18 @@
+{
+  "id": "marketing-digital-gerontologico",
+  "icon": "megaphone",
+  "title": "Marketing Digital y Creación de Contenido Gerontológico",
+  "description": "Estrategias de marketing digital especializadas en gerontología y creación de contenido educativo para profesionales y organizaciones del sector.",
+  "benefits": [
+    "Desarrollo de estrategias de marketing digital para el sector gerontológico",
+    "Creación de contenido educativo especializado",
+    "Gestión de redes sociales con enfoque gerontológico",
+    "Posicionamiento digital para profesionales de la salud",
+    "Campañas de concientización sobre envejecimiento activo",
+    "Capacitación en comunicación digital efectiva"
+  ],
+  "detailedDescription": "El marketing digital gerontológico combina estrategias de comunicación moderna con conocimiento especializado en envejecimiento. Incluye desarrollo de contenido educativo, gestión de redes sociales, posicionamiento SEO para profesionales de la salud, y creación de campañas que promuevan una imagen positiva del envejecimiento y sensibilicen sobre las necesidades de las personas mayores.",
+  "order": 6,
+  "active": true,
+  "image": "/images/services/marketing-digital-gerontologico.jpg"
+}

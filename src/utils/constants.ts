@@ -8,7 +8,7 @@ export const SITE_CONFIG: SiteConfig = {
     name: siteConfigData.author.name,
     title: siteConfigData.author.title,
     headerTitle: siteConfigData.author.headerTitle,
-    credentials: ['Gerontóloga', 'Experta en Envejecimiento, Vejez y Personas Mayores'],
+    credentials: ['Gerontóloga', 'Experta en Envejecimiento, Vejez y Personas Mayores','Intervención en Demencias y Alzheimer'],
     bio: siteConfigData.author.bio,
     photo: siteConfigData.author.photo
   },

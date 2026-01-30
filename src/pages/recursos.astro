@@ -92,11 +92,11 @@ function formatDate(date: Date): string {
                 data-category={post.data.category}
               >
                 <!-- Featured Image -->
-                <div class="article-image aspect-video overflow-hidden bg-gray-100 flex items-center justify-center">
+                <div class="article-image aspect-video overflow-hidden bg-gray-100">
                   <img
                     src={post.data.featuredImage || '/images/blog/default-article.jpg'}
                     alt={post.data.title}
-                    class="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-105"
+                    class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     loading="lazy"
                   />
                 </div>

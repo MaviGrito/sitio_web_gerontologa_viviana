@@ -16,7 +16,7 @@
   status = 200
 
 [context.production.environment]
-  SITE_URL = "https://sitiowebgerontologavivianatonguino.netlify.app"
+  SITE_URL = "https://gerontologaviviana.com"
 
 [context.deploy-preview.environment]
   SITE_URL = "https://deploy-preview-$DEPLOY_ID--sitiowebgerontologavivianatonguino.netlify.app"

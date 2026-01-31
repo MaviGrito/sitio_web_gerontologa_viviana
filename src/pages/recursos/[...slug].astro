@@ -76,15 +76,16 @@ const shareUrls = {
           <div class="gallery-container relative bg-gray-100">
             <div class="aspect-video lg:aspect-[21/9] overflow-hidden">
               <!-- Gallery Images -->
-              <div class="gallery-track flex h-full transition-transform duration-300 ease-out" id="gallery-track" data-total={entry.data.gallery.length}>
+              <div class="gallery-track flex h-full transition-transform duration-300 ease-out touch-pan-y" id="gallery-track" data-total={entry.data.gallery.length} style="touch-action: pan-y;">
                 {entry.data.gallery.map((image, index) => (
                   <div class="gallery-slide flex-shrink-0 w-full h-full flex items-center justify-center bg-gray-100 cursor-pointer" data-index={index}>
                     <img
                       src={image}
                       alt={`${entry.data.title} - Imagen ${index + 1}`}
-                      class="max-w-full max-h-full object-contain gallery-image"
+                      class="max-w-full max-h-full object-contain gallery-image select-none"
                       loading={index === 0 ? "eager" : "lazy"}
                       data-full-src={image}
+                      draggable="false"
                     />
                   </div>
                 ))}
@@ -490,16 +491,17 @@ const shareUrls = {
       indicator.addEventListener('click', () => goToImage(index));
     });
     
-    // Improved Touch/swipe support
+    // Improved Touch/swipe support - Simplified and more reliable
     let touchStartTime = 0;
+    let hasMoved = false;
     
     galleryTrack.addEventListener('touchstart', (e) => {
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       isDragging = true;
       isScrolling = false;
+      hasMoved = false;
       touchStartTime = Date.now();
-      galleryTrack.style.transition = 'none';
     }, { passive: true });
     
     galleryTrack.addEventListener('touchmove', (e) => {
@@ -507,34 +509,34 @@ const shareUrls = {
       
       const currentX = e.touches[0].clientX;
       const currentY = e.touches[0].clientY;
-      const diffX = currentX - startX;
-      const diffY = currentY - startY;
+      const diffX = Math.abs(currentX - startX);
+      const diffY = Math.abs(currentY - startY);
       
-      // Determine if this is a horizontal or vertical scroll
-      if (!isScrolling) {
-        isScrolling = Math.abs(diffY) > Math.abs(diffX);
+      // Only determine scroll direction once
+      if (!hasMoved && (diffX > 5 || diffY > 5)) {
+        hasMoved = true;
+        isScrolling = diffY > diffX;
       }
       
-      // If it's vertical scrolling, don't interfere
-      if (isScrolling) {
-        return;
+      // If it's horizontal movement, prevent default and show visual feedback
+      if (hasMoved && !isScrolling) {
+        e.preventDefault();
+        const moveX = currentX - startX;
+        const translateX = -currentIndex * 100 + (moveX / galleryTrack.offsetWidth) * 100;
+        galleryTrack.style.transition = 'none';
+        galleryTrack.style.transform = `translateX(${translateX}%)`;
       }
-      
-      // Prevent default for horizontal swipes
-      e.preventDefault();
-      
-      // Visual feedback during swipe
-      const translateX = -currentIndex * 100 + (diffX / galleryTrack.offsetWidth) * 100;
-      galleryTrack.style.transform = `translateX(${translateX}%)`;
     }, { passive: false });
     
     galleryTrack.addEventListener('touchend', (e) => {
       if (!isDragging) return;
       isDragging = false;
       
-      // If it was vertical scrolling, don't change images
-      if (isScrolling) {
-        galleryTrack.style.transition = 'transform 0.3s ease-out';
+      // Reset transition
+      galleryTrack.style.transition = 'transform 0.3s ease-out';
+      
+      // If it was vertical scrolling, just reset position
+      if (isScrolling || !hasMoved) {
         updateGallery();
         return;
       }
@@ -542,24 +544,33 @@ const shareUrls = {
       const endX = e.changedTouches[0].clientX;
       const diffX = startX - endX;
       const touchDuration = Date.now() - touchStartTime;
-      const threshold = 50;
-      const velocity = Math.abs(diffX) / touchDuration;
+      const minSwipeDistance = 30;
+      const maxSwipeTime = 300;
       
-      galleryTrack.style.transition = 'transform 0.3s ease-out';
+      // Check for valid swipe
+      const isValidSwipe = Math.abs(diffX) > minSwipeDistance && touchDuration < maxSwipeTime;
       
-      // Check for swipe gesture
-      if (Math.abs(diffX) > threshold || velocity > 0.3) {
+      if (isValidSwipe) {
         if (diffX > 0 && currentIndex < totalImages - 1) {
+          // Swipe left - next image
           nextImage();
         } else if (diffX < 0 && currentIndex > 0) {
+          // Swipe right - previous image
           prevImage();
         } else {
+          // Can't go further, reset position
           updateGallery();
         }
       } else {
+        // Not a valid swipe, reset position
         updateGallery();
       }
     }, { passive: true });
+    
+    // Prevent context menu on long press
+    galleryTrack.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+    });
     
     // Mouse drag support for desktop
     let mouseStartX = 0;
@@ -657,19 +668,21 @@ const shareUrls = {
       }
     }
     
-    // Fullscreen touch support
+    // Fullscreen touch support - Simplified and more reliable
     let fullscreenStartX = 0;
     let fullscreenStartY = 0;
     let fullscreenIsDragging = false;
     let fullscreenIsScrolling = false;
+    let fullscreenHasMoved = false;
     
     if (fullscreenModal) {
       fullscreenModal.addEventListener('touchstart', (e) => {
-        if (e.target === fullscreenImage) {
+        if (e.target === fullscreenImage || e.target.closest('#fullscreen-image')) {
           fullscreenStartX = e.touches[0].clientX;
           fullscreenStartY = e.touches[0].clientY;
           fullscreenIsDragging = true;
           fullscreenIsScrolling = false;
+          fullscreenHasMoved = false;
         }
       }, { passive: true });
       
@@ -678,14 +691,17 @@ const shareUrls = {
         
         const currentX = e.touches[0].clientX;
         const currentY = e.touches[0].clientY;
-        const diffX = currentX - fullscreenStartX;
-        const diffY = currentY - fullscreenStartY;
+        const diffX = Math.abs(currentX - fullscreenStartX);
+        const diffY = Math.abs(currentY - fullscreenStartY);
         
-        if (!fullscreenIsScrolling) {
-          fullscreenIsScrolling = Math.abs(diffY) > Math.abs(diffX);
+        // Determine direction only once
+        if (!fullscreenHasMoved && (diffX > 5 || diffY > 5)) {
+          fullscreenHasMoved = true;
+          fullscreenIsScrolling = diffY > diffX;
         }
         
-        if (!fullscreenIsScrolling && Math.abs(diffX) > 10) {
+        // Prevent default for horizontal swipes
+        if (fullscreenHasMoved && !fullscreenIsScrolling) {
           e.preventDefault();
         }
       }, { passive: false });
@@ -694,16 +710,17 @@ const shareUrls = {
         if (!fullscreenIsDragging) return;
         fullscreenIsDragging = false;
         
-        if (fullscreenIsScrolling) return;
+        // If it was vertical scrolling or no movement, ignore
+        if (fullscreenIsScrolling || !fullscreenHasMoved) return;
         
         const endX = e.changedTouches[0].clientX;
         const diffX = fullscreenStartX - endX;
         const threshold = 50;
         
         if (Math.abs(diffX) > threshold) {
-          if (diffX > 0) {
+          if (diffX > 0 && currentIndex < totalImages - 1) {
             nextFullscreenImage();
-          } else {
+          } else if (diffX < 0 && currentIndex > 0) {
             prevFullscreenImage();
           }
         }

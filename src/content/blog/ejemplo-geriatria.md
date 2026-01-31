@@ -32,11 +32,11 @@ excerpt: ""
 
 > El gerontólogo orienta sobre los cambios físicos, cognitivos, emocionales y sociales que ocurren a lo largo del ciclo vital, promoviendo una visión positiva y realista del envejecer.
 
-# ***PARA PLANIFICAR UNA VEJEZ ACTIVA Y SALUDABLE.***
+# \
+***PARA PLANIFICAR UNA VEJEZ ACTIVA Y SALUDABLE.***
 
 > Se trabajan estrategias personalizadas que integran hábitos saludables, redes de apoyo, proyectos de vida y participación social.
 
-# \
 ***PARA FORTALECER LA AUTONOMÍA Y PREVENIR LA DEPENDENCIA.***
 
 > A través de la evaluación integral, la estimulación de capacidades y la intervención integral, el gerontólogo favorece la independencia funcional y la calidad de vida.
@@ -54,7 +54,6 @@ excerpt: ""
 
 > Cambios como la jubilación, el duelo o la reubicación pueden generar crisis; el gerontólogo facilita la adaptación y el afrontamiento saludable.
 
-# \
-***PARA ASESORAR EN POLÍTICAS Y PROGRAMAS DE ENVEJECIMIENTO, VEJEZ Y PERSONAS MAYORES***
+# ***PARA ASESORAR EN POLÍTICAS Y PROGRAMAS DE ENVEJECIMIENTO, VEJEZ Y PERSONAS MAYORES***
 
 > Participa en la creación y evaluación de estrategias, políticas y proyectos que garanticen entornos accesibles, inclusivos y sostenibles para las personas mayores.

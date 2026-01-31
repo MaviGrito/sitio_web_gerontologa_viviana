@@ -416,7 +416,7 @@ const shareUrls = {
 </BaseLayout>
 
 <script>
-  // Enhanced Gallery with Touch Support and Fullscreen
+  // Carrusel mejorado con soporte táctil fluido y pantalla completa con animaciones
   document.addEventListener('DOMContentLoaded', function() {
     const galleryTrack = document.getElementById('gallery-track');
     const prevBtn = document.getElementById('gallery-prev');
@@ -424,7 +424,7 @@ const shareUrls = {
     const indicators = document.querySelectorAll('.gallery-indicator');
     const currentImageSpan = document.getElementById('current-image');
     
-    // Fullscreen elements
+    // Elementos de pantalla completa
     const fullscreenModal = document.getElementById('fullscreen-modal');
     const fullscreenImage = document.getElementById('fullscreen-image');
     const closeFullscreenBtn = document.getElementById('close-fullscreen');
@@ -437,39 +437,63 @@ const shareUrls = {
     
     const totalImages = parseInt(galleryTrack.dataset.total) || 0;
     let currentIndex = 0;
-    let startX = 0;
-    let startY = 0;
-    let isDragging = false;
-    let isScrolling = false;
+    let isTransitioning = false;
     
-    // Update gallery display
-    function updateGallery() {
+    // Variables para el manejo táctil mejorado
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchCurrentX = 0;
+    let touchCurrentY = 0;
+    let isDragging = false;
+    let swipeDirection = null;
+    let touchStartTime = 0;
+    
+    // Actualizar visualización del carrusel
+    function updateGallery(animate = true) {
+      if (isTransitioning) return;
+      
       const translateX = -currentIndex * 100;
+      
+      if (animate) {
+        galleryTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      } else {
+        galleryTrack.style.transition = 'none';
+      }
+      
       galleryTrack.style.transform = `translateX(${translateX}%)`;
       
-      // Update counter
+      // Actualizar contador
       if (currentImageSpan) {
         currentImageSpan.textContent = currentIndex + 1;
       }
       
-      // Update indicators
+      // Actualizar indicadores
       indicators.forEach((indicator, index) => {
         indicator.classList.toggle('bg-white', index === currentIndex);
         indicator.classList.toggle('bg-white/60', index !== currentIndex);
       });
       
-      // Update navigation buttons
+      // Actualizar botones de navegación
       if (prevBtn) prevBtn.disabled = currentIndex === 0;
       if (nextBtn) nextBtn.disabled = currentIndex === totalImages - 1;
     }
     
-    // Navigate to specific image
-    function goToImage(index) {
-      currentIndex = Math.max(0, Math.min(index, totalImages - 1));
-      updateGallery();
+    // Navegar a imagen específica
+    function goToImage(index, animate = true) {
+      if (isTransitioning || index < 0 || index >= totalImages) return;
+      
+      currentIndex = index;
+      updateGallery(animate);
+      
+      if (animate) {
+        isTransitioning = true;
+        setTimeout(() => {
+          isTransitioning = false;
+        }, 400);
+      }
     }
     
-    // Navigation functions
+    // Funciones de navegación
     function nextImage() {
       if (currentIndex < totalImages - 1) {
         goToImage(currentIndex + 1);
@@ -482,101 +506,118 @@ const shareUrls = {
       }
     }
     
-    // Button event listeners
+    // Event listeners para botones
     if (nextBtn) nextBtn.addEventListener('click', nextImage);
     if (prevBtn) prevBtn.addEventListener('click', prevImage);
     
-    // Indicator event listeners
+    // Event listeners para indicadores
     indicators.forEach((indicator, index) => {
       indicator.addEventListener('click', () => goToImage(index));
     });
     
-    // Improved Touch/swipe support - Simplified and more reliable
-    let touchStartTime = 0;
-    let hasMoved = false;
-    
+    // Soporte táctil mejorado y más confiable
     galleryTrack.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      isDragging = true;
-      isScrolling = false;
-      hasMoved = false;
+      if (isTransitioning) return;
+      
+      const touch = e.touches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      touchCurrentX = touch.clientX;
+      touchCurrentY = touch.clientY;
       touchStartTime = Date.now();
+      isDragging = true;
+      swipeDirection = null;
+      
+      // Detener cualquier transición en curso
+      galleryTrack.style.transition = 'none';
     }, { passive: true });
     
     galleryTrack.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
+      if (!isDragging || isTransitioning) return;
       
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      const diffX = Math.abs(currentX - startX);
-      const diffY = Math.abs(currentY - startY);
+      const touch = e.touches[0];
+      touchCurrentX = touch.clientX;
+      touchCurrentY = touch.clientY;
       
-      // Only determine scroll direction once
-      if (!hasMoved && (diffX > 5 || diffY > 5)) {
-        hasMoved = true;
-        isScrolling = diffY > diffX;
+      const deltaX = touchCurrentX - touchStartX;
+      const deltaY = touchCurrentY - touchStartY;
+      const absDeltaX = Math.abs(deltaX);
+      const absDeltaY = Math.abs(deltaY);
+      
+      // Determinar dirección del swipe solo una vez
+      if (swipeDirection === null && (absDeltaX > 10 || absDeltaY > 10)) {
+        swipeDirection = absDeltaX > absDeltaY ? 'horizontal' : 'vertical';
       }
       
-      // If it's horizontal movement, prevent default and show visual feedback
-      if (hasMoved && !isScrolling) {
+      // Si es swipe horizontal, prevenir scroll y mostrar feedback visual
+      if (swipeDirection === 'horizontal') {
         e.preventDefault();
-        const moveX = currentX - startX;
-        const translateX = -currentIndex * 100 + (moveX / galleryTrack.offsetWidth) * 100;
-        galleryTrack.style.transition = 'none';
+        
+        // Calcular posición con resistencia en los extremos
+        let resistance = 1;
+        if ((currentIndex === 0 && deltaX > 0) || (currentIndex === totalImages - 1 && deltaX < 0)) {
+          resistance = 0.3; // Resistencia en los extremos
+        }
+        
+        const movePercent = (deltaX * resistance) / galleryTrack.offsetWidth * 100;
+        const translateX = -currentIndex * 100 + movePercent;
+        
         galleryTrack.style.transform = `translateX(${translateX}%)`;
       }
     }, { passive: false });
     
     galleryTrack.addEventListener('touchend', (e) => {
       if (!isDragging) return;
+      
       isDragging = false;
+      const touchEndTime = Date.now();
+      const touchDuration = touchEndTime - touchStartTime;
+      const deltaX = touchCurrentX - touchStartX;
+      const absDeltaX = Math.abs(deltaX);
       
-      // Reset transition
-      galleryTrack.style.transition = 'transform 0.3s ease-out';
+      // Restaurar transición
+      galleryTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
       
-      // If it was vertical scrolling, just reset position
-      if (isScrolling || !hasMoved) {
-        updateGallery();
+      // Si no fue un swipe horizontal, solo restaurar posición
+      if (swipeDirection !== 'horizontal') {
+        updateGallery(false);
         return;
       }
       
-      const endX = e.changedTouches[0].clientX;
-      const diffX = startX - endX;
-      const touchDuration = Date.now() - touchStartTime;
-      const minSwipeDistance = 30;
-      const maxSwipeTime = 300;
+      // Determinar si fue un swipe válido
+      const isQuickSwipe = touchDuration < 300 && absDeltaX > 30;
+      const isLongSwipe = absDeltaX > galleryTrack.offsetWidth * 0.25;
+      const shouldSwipe = isQuickSwipe || isLongSwipe;
       
-      // Check for valid swipe
-      const isValidSwipe = Math.abs(diffX) > minSwipeDistance && touchDuration < maxSwipeTime;
-      
-      if (isValidSwipe) {
-        if (diffX > 0 && currentIndex < totalImages - 1) {
-          // Swipe left - next image
-          nextImage();
-        } else if (diffX < 0 && currentIndex > 0) {
-          // Swipe right - previous image
-          prevImage();
+      if (shouldSwipe) {
+        if (deltaX > 0 && currentIndex > 0) {
+          // Swipe derecha - imagen anterior
+          goToImage(currentIndex - 1);
+        } else if (deltaX < 0 && currentIndex < totalImages - 1) {
+          // Swipe izquierda - siguiente imagen
+          goToImage(currentIndex + 1);
         } else {
-          // Can't go further, reset position
+          // No se puede ir más lejos, restaurar posición
           updateGallery();
         }
       } else {
-        // Not a valid swipe, reset position
+        // No fue un swipe válido, restaurar posición
         updateGallery();
       }
     }, { passive: true });
     
-    // Prevent context menu on long press
+    // Prevenir menú contextual en long press
     galleryTrack.addEventListener('contextmenu', (e) => {
       e.preventDefault();
     });
     
-    // Mouse drag support for desktop
+    // Soporte para mouse drag en desktop
     let mouseStartX = 0;
     let isMouseDragging = false;
     
     galleryTrack.addEventListener('mousedown', (e) => {
+      if (isTransitioning) return;
+      
       mouseStartX = e.clientX;
       isMouseDragging = true;
       galleryTrack.style.cursor = 'grabbing';
@@ -585,28 +626,36 @@ const shareUrls = {
     });
     
     document.addEventListener('mousemove', (e) => {
-      if (!isMouseDragging) return;
+      if (!isMouseDragging || isTransitioning) return;
       e.preventDefault();
       
-      const diffX = e.clientX - mouseStartX;
-      const translateX = -currentIndex * 100 + (diffX / galleryTrack.offsetWidth) * 100;
+      const deltaX = e.clientX - mouseStartX;
+      let resistance = 1;
+      
+      if ((currentIndex === 0 && deltaX > 0) || (currentIndex === totalImages - 1 && deltaX < 0)) {
+        resistance = 0.3;
+      }
+      
+      const movePercent = (deltaX * resistance) / galleryTrack.offsetWidth * 100;
+      const translateX = -currentIndex * 100 + movePercent;
       galleryTrack.style.transform = `translateX(${translateX}%)`;
     });
     
     document.addEventListener('mouseup', (e) => {
       if (!isMouseDragging) return;
+      
       isMouseDragging = false;
       galleryTrack.style.cursor = 'grab';
-      galleryTrack.style.transition = 'transform 0.3s ease-out';
+      galleryTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
       
-      const diffX = mouseStartX - e.clientX;
-      const threshold = 50;
+      const deltaX = mouseStartX - e.clientX;
+      const threshold = 80;
       
-      if (Math.abs(diffX) > threshold) {
-        if (diffX > 0 && currentIndex < totalImages - 1) {
-          nextImage();
-        } else if (diffX < 0 && currentIndex > 0) {
-          prevImage();
+      if (Math.abs(deltaX) > threshold) {
+        if (deltaX > 0 && currentIndex < totalImages - 1) {
+          goToImage(currentIndex + 1);
+        } else if (deltaX < 0 && currentIndex > 0) {
+          goToImage(currentIndex - 1);
         } else {
           updateGallery();
         }
@@ -615,24 +664,43 @@ const shareUrls = {
       }
     });
     
-    // Fullscreen functionality
+    // Funcionalidad de pantalla completa con animaciones suaves
     function openFullscreen(imageSrc, imageAlt, imageIndex) {
       if (fullscreenModal && fullscreenImage) {
+        // Configurar imagen inicial
+        fullscreenImage.style.opacity = '0';
+        fullscreenImage.style.transform = 'scale(0.9)';
         fullscreenImage.src = imageSrc;
         fullscreenImage.alt = imageAlt;
+        
+        // Mostrar modal
         fullscreenModal.classList.remove('hidden');
         fullscreenModal.classList.add('flex');
         currentIndex = imageIndex;
         updateFullscreenCounter();
         document.body.style.overflow = 'hidden';
+        
+        // Animar entrada de la imagen
+        setTimeout(() => {
+          fullscreenImage.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+          fullscreenImage.style.opacity = '1';
+          fullscreenImage.style.transform = 'scale(1)';
+        }, 50);
       }
     }
     
     function closeFullscreen() {
-      if (fullscreenModal) {
-        fullscreenModal.classList.add('hidden');
-        fullscreenModal.classList.remove('flex');
-        document.body.style.overflow = '';
+      if (fullscreenModal && fullscreenImage) {
+        // Animar salida
+        fullscreenImage.style.transition = 'opacity 0.2s ease-in, transform 0.2s ease-in';
+        fullscreenImage.style.opacity = '0';
+        fullscreenImage.style.transform = 'scale(0.9)';
+        
+        setTimeout(() => {
+          fullscreenModal.classList.add('hidden');
+          fullscreenModal.classList.remove('flex');
+          document.body.style.overflow = '';
+        }, 200);
       }
     }
     
@@ -645,18 +713,34 @@ const shareUrls = {
     function updateFullscreenImage() {
       if (fullscreenImage && galleryImages[currentIndex]) {
         const currentImg = galleryImages[currentIndex];
-        fullscreenImage.src = currentImg.src;
-        fullscreenImage.alt = currentImg.alt;
-        updateFullscreenCounter();
+        
+        // Animar salida de la imagen actual
+        fullscreenImage.style.transition = 'opacity 0.15s ease-in, transform 0.15s ease-in';
+        fullscreenImage.style.opacity = '0';
+        fullscreenImage.style.transform = 'scale(0.95)';
+        
+        setTimeout(() => {
+          // Cambiar imagen
+          fullscreenImage.src = currentImg.src;
+          fullscreenImage.alt = currentImg.alt;
+          updateFullscreenCounter();
+          
+          // Animar entrada de la nueva imagen
+          setTimeout(() => {
+            fullscreenImage.style.transition = 'opacity 0.25s ease-out, transform 0.25s ease-out';
+            fullscreenImage.style.opacity = '1';
+            fullscreenImage.style.transform = 'scale(1)';
+          }, 50);
+        }, 150);
       }
     }
     
-    // Fullscreen navigation
+    // Navegación en pantalla completa
     function nextFullscreenImage() {
       if (currentIndex < totalImages - 1) {
         currentIndex++;
         updateFullscreenImage();
-        updateGallery();
+        updateGallery(false); // Sincronizar con el carrusel principal sin animación
       }
     }
     
@@ -664,70 +748,67 @@ const shareUrls = {
       if (currentIndex > 0) {
         currentIndex--;
         updateFullscreenImage();
-        updateGallery();
+        updateGallery(false); // Sincronizar con el carrusel principal sin animación
       }
     }
     
-    // Fullscreen touch support - Simplified and more reliable
-    let fullscreenStartX = 0;
-    let fullscreenStartY = 0;
+    // Soporte táctil para pantalla completa
+    let fullscreenTouchStartX = 0;
+    let fullscreenTouchStartY = 0;
     let fullscreenIsDragging = false;
-    let fullscreenIsScrolling = false;
-    let fullscreenHasMoved = false;
+    let fullscreenSwipeDirection = null;
     
     if (fullscreenModal) {
       fullscreenModal.addEventListener('touchstart', (e) => {
-        if (e.target === fullscreenImage || e.target.closest('#fullscreen-image')) {
-          fullscreenStartX = e.touches[0].clientX;
-          fullscreenStartY = e.touches[0].clientY;
-          fullscreenIsDragging = true;
-          fullscreenIsScrolling = false;
-          fullscreenHasMoved = false;
-        }
+        const touch = e.touches[0];
+        fullscreenTouchStartX = touch.clientX;
+        fullscreenTouchStartY = touch.clientY;
+        fullscreenIsDragging = true;
+        fullscreenSwipeDirection = null;
       }, { passive: true });
       
       fullscreenModal.addEventListener('touchmove', (e) => {
         if (!fullscreenIsDragging) return;
         
-        const currentX = e.touches[0].clientX;
-        const currentY = e.touches[0].clientY;
-        const diffX = Math.abs(currentX - fullscreenStartX);
-        const diffY = Math.abs(currentY - fullscreenStartY);
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - fullscreenTouchStartX;
+        const deltaY = touch.clientY - fullscreenTouchStartY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
         
-        // Determine direction only once
-        if (!fullscreenHasMoved && (diffX > 5 || diffY > 5)) {
-          fullscreenHasMoved = true;
-          fullscreenIsScrolling = diffY > diffX;
+        // Determinar dirección
+        if (fullscreenSwipeDirection === null && (absDeltaX > 10 || absDeltaY > 10)) {
+          fullscreenSwipeDirection = absDeltaX > absDeltaY ? 'horizontal' : 'vertical';
         }
         
-        // Prevent default for horizontal swipes
-        if (fullscreenHasMoved && !fullscreenIsScrolling) {
+        // Prevenir scroll para swipes horizontales
+        if (fullscreenSwipeDirection === 'horizontal') {
           e.preventDefault();
         }
       }, { passive: false });
       
       fullscreenModal.addEventListener('touchend', (e) => {
         if (!fullscreenIsDragging) return;
+        
         fullscreenIsDragging = false;
         
-        // If it was vertical scrolling or no movement, ignore
-        if (fullscreenIsScrolling || !fullscreenHasMoved) return;
+        if (fullscreenSwipeDirection !== 'horizontal') return;
         
-        const endX = e.changedTouches[0].clientX;
-        const diffX = fullscreenStartX - endX;
+        const touch = e.changedTouches[0];
+        const deltaX = fullscreenTouchStartX - touch.clientX;
         const threshold = 50;
         
-        if (Math.abs(diffX) > threshold) {
-          if (diffX > 0 && currentIndex < totalImages - 1) {
+        if (Math.abs(deltaX) > threshold) {
+          if (deltaX > 0 && currentIndex < totalImages - 1) {
             nextFullscreenImage();
-          } else if (diffX < 0 && currentIndex > 0) {
+          } else if (deltaX < 0 && currentIndex > 0) {
             prevFullscreenImage();
           }
         }
       }, { passive: true });
     }
     
-    // Fullscreen event listeners
+    // Event listeners para pantalla completa
     galleryImages.forEach((img, index) => {
       img.addEventListener('click', () => {
         openFullscreen(img.src, img.alt, index);
@@ -746,7 +827,7 @@ const shareUrls = {
       fullscreenNextBtn.addEventListener('click', nextFullscreenImage);
     }
     
-    // Close fullscreen with Escape key
+    // Cerrar pantalla completa con tecla Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !fullscreenModal.classList.contains('hidden')) {
         closeFullscreen();
@@ -760,7 +841,7 @@ const shareUrls = {
       }
     });
     
-    // Close fullscreen when clicking outside image
+    // Cerrar pantalla completa al hacer clic fuera de la imagen
     if (fullscreenModal) {
       fullscreenModal.addEventListener('click', (e) => {
         if (e.target === fullscreenModal) {
@@ -769,8 +850,8 @@ const shareUrls = {
       });
     }
     
-    // Initialize gallery
-    updateGallery();
+    // Inicializar carrusel
+    updateGallery(false);
     if (galleryTrack) {
       galleryTrack.style.cursor = 'grab';
     }

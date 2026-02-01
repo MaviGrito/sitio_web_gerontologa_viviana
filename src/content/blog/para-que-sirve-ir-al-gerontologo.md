@@ -4,17 +4,16 @@ description: Consultar al gerontólogo es apostar por una sociedad que valora,
   comprende y respeta el envejecimiento.
 publishDate: 2024-01-15
 featuredImage: /uploads/1.jpg
-gallery: [
-  "/uploads/1.jpg",
-  "/uploads/2.jpg",
-  "/uploads/3.jpg",
-  "/uploads/4.jpg",
-  "/uploads/5.jpg",
-  "/uploads/6.jpg",
-  "/uploads/7.jpg",
-  "/uploads/8.jpg",
-  "/uploads/9.jpg"
-]
+gallery:
+  - /uploads/1.jpg
+  - /uploads/2.jpg
+  - /uploads/3.jpg
+  - /uploads/4.jpg
+  - /uploads/5.jpg
+  - /uploads/6.jpg
+  - /uploads/7.jpg
+  - /uploads/8.jpg
+  - /uploads/9.jpg
 category: gerontologia
 tags:
   - Gerontología
@@ -29,7 +28,7 @@ author: Viviana Tonguino Guerrero
 draft: false
 excerpt: ""
 ---
-# ***PARA COMPRENDER EL PROCESO DE ENVEJECIMIENTO***
+# ***PARA COMPRENDER EL PROCESO DE ENVEJECIMIENTO.***
 
 > El gerontólogo orienta sobre los cambios físicos, cognitivos, emocionales y sociales que ocurren a lo largo del ciclo vital, promoviendo una visión positiva y realista del envejecer.
 
@@ -53,6 +52,6 @@ excerpt: ""
 
 > Cambios como la jubilación, el duelo o la reubicación pueden generar crisis; el gerontólogo facilita la adaptación y el afrontamiento saludable.
 
-# ***PARA ASESORAR EN POLÍTICAS Y PROGRAMAS DE ENVEJECIMIENTO, VEJEZ Y PERSONAS MAYORES***
+# ***PARA ASESORAR EN POLÍTICAS Y PROGRAMAS DE ENVEJECIMIENTO, VEJEZ Y PERSONAS MAYORES.***
 
 > Participa en la creación y evaluación de estrategias, políticas y proyectos que garanticen entornos accesibles, inclusivos y sostenibles para las personas mayores.

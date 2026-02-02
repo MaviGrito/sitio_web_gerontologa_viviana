@@ -2,7 +2,7 @@
 title: ¿PARA QUÉ SIRVE IR AL GERONTÓLOGO?
 description: Consultar al gerontólogo es apostar por una sociedad que valora,
   comprende y respeta el envejecimiento.
-publishDate: 2024-01-15
+publishDate: 2026-01-15
 featuredImage: /uploads/1.jpg
 gallery: [
   "/uploads/1.jpg",

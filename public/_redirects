@@ -1,0 +1,8 @@
+# Redirección de dominio sin www a www
+https://gerontologaviviana.com/* https://www.gerontologaviviana.com/:splat 301!
+
+# Redirecciones para el CMS
+/admin/* /admin/index.html 200
+
+# SPA fallback
+/* /index.html 200

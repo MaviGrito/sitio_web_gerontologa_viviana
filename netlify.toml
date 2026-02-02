@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Redirección de dominio sin www a www
+[[redirects]]
+  from = "https://gerontologaviviana.com/*"
+  to = "https://www.gerontologaviviana.com/:splat"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
@@ -16,7 +23,7 @@
   status = 200
 
 [context.production.environment]
-  SITE_URL = "https://gerontologaviviana.com"
+  SITE_URL = "https://www.gerontologaviviana.com"
 
 [context.deploy-preview.environment]
   SITE_URL = "https://deploy-preview-$DEPLOY_ID--sitiowebgerontologavivianatonguino.netlify.app"

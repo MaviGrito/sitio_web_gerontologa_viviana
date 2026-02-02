@@ -32,7 +32,7 @@ describe('Content Collections Configuration', () => {
         data: {
           title: 'Test Blog Post',
           description: 'This is a test description',
-          publishDate: new Date('2024-01-15'),
+          publishDate: new Date('2026-01-15'),
           featuredImage: '/images/test.jpg',
           category: 'geriatria',
           tags: ['test', 'blog'],
@@ -56,7 +56,7 @@ describe('Content Collections Configuration', () => {
         data: {
           title: '',
           description: '',
-          publishDate: new Date('2024-01-15'),
+          publishDate: new Date('2026-01-15'),
           featuredImage: '',
           category: 'geriatria',
           tags: [],
@@ -142,7 +142,7 @@ describe('Content Collections Configuration', () => {
 
     it('should format dates correctly', async () => {
       const { formatDate } = await import('./content');
-      const testDate = new Date('2024-01-15');
+      const testDate = new Date('2026-01-15');
       const formattedDate = formatDate(testDate);
       expect(typeof formattedDate).toBe('string');
       expect(formattedDate.length).toBeGreaterThan(0);

@@ -6,6 +6,6 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind(), react()],
-  site: 'https://gerontologaviviana.com',
+  site: 'https://www.gerontologaviviana.com',
   output: 'static'
 });

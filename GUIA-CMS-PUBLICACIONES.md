@@ -115,11 +115,18 @@ Selecciona una categoría:
 - Salud Mental
 
 #### **Etiquetas**
-Agrega palabras clave relacionadas:
+Agrega palabras clave relacionadas (incluyendo términos coloquiales que la gente busca):
 1. Haz clic en "Add tags"
-2. Escribe una etiqueta (ej: "envejecimiento")
+2. Escribe una etiqueta (ej: "envejecimiento", "viejitos", "abuelos", "tercera edad")
 3. Presiona Enter
 4. Repite para agregar más etiquetas
+
+**💡 Importante sobre las etiquetas:**
+- Las etiquetas **NO son visibles** en el sitio web (están ocultas)
+- **SÍ funcionan para SEO** - Google las lee y ayudan a que te encuentren
+- Puedes usar términos coloquiales sin preocuparte (ej: "viejitos", "abuelos")
+- Esto ayuda a capturar búsquedas como "cuidado viejitos medellín" aunque no uses esos términos visiblemente
+- Es una estrategia profesional y ética de SEO
 
 ---
 

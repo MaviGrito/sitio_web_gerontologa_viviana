@@ -50,7 +50,7 @@ excerpt: ""
 
 # ***PARA ACOMPAÑAR TRANSICIONES VITALES.***
 
-> Cambios como la jubilación, el duelo o la reubicación pueden generar crisis; el gerontólogo facilita la adaptación y el afrontamiento saludable.
+> Cambios como la jubilación, el duelo o la reubicación pueden generar crisis; el gerontólogo facilita la adaptación y el afrontamiento saludable..
 
 # ***PARA ASESORAR EN POLÍTICAS Y PROGRAMAS DE ENVEJECIMIENTO, VEJEZ Y PERSONAS MAYORES.***
 

@@ -21,9 +21,9 @@ locale: 'es'
 # Enable editorial workflow (draft/review/ready)
 publish_mode: editorial_workflow
 
-# Editor settings for better stability
+# Editor settings for better stability and rich text editing
 editor:
-  preview: false
+  preview: true
 
 # Slug settings
 slug:
@@ -36,7 +36,7 @@ collections:
     label_singular: "Publicación"
     folder: "src/content/blog"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     preview_path: "recursos/{{slug}}"
     fields:
       - {
@@ -66,17 +66,22 @@ collections:
           hint: "Imagen principal del artículo (recomendado: 1200x630px)"
         }
       - {
-          label: "Galería de Imágenes", 
+          label: "Galería de Imágenes (opcional)", 
           name: "gallery", 
           widget: "list",
           required: false,
+          summary: "{{fields.image}}",
           field: {
             label: "Imagen",
             name: "image",
-            widget: "string",
-            hint: "URL de la imagen (ej: /uploads/imagen.jpg)"
+            widget: "image",
+            media_library: {
+              config: {
+                multiple: false
+              }
+            }
           },
-          hint: "URLs de imágenes adicionales para la galería deslizable. Formato: /uploads/nombre.jpg"
+          hint: "Haz clic en 'Add galería de imágenes' para agregar cada imagen. Puedes subir múltiples imágenes una por una haciendo clic en 'Elegir imagen'."
         }
       - {
           label: "Categoría", 
@@ -120,10 +125,11 @@ collections:
           label: "Contenido", 
           name: "body", 
           widget: "markdown",
-          hint: "Contenido principal del artículo en formato Markdown",
-          modes: ["rich_text", "raw"],
+          hint: "Escribe o pega tu contenido aquí. Puedes copiar desde Word y se mantendrá el formato (negritas, cursivas, listas, etc.)",
+          modes: ["rich_text"],
+          buttons: ["bold", "italic", "code", "link", "heading-one", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"],
           editor_components: [],
-          show_raw: true
+          sanitize_preview: true
         }
 
   # Configuration collection for site settings

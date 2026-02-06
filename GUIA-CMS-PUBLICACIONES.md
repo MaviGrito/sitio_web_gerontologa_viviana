@@ -139,6 +139,21 @@ Agrega palabras clave relacionadas:
 
 ## 🎨 Consejos de Formato
 
+### **Para Saltos de Línea y Espaciado**
+
+**Crear un nuevo párrafo (con espacio):**
+- Presiona **Enter dos veces**
+- Esto creará un espacio entre párrafos
+
+**Ejemplo:**
+```
+Este es el primer párrafo.
+
+Este es el segundo párrafo (con espacio arriba).
+```
+
+**💡 Consejo:** Si copias desde Word, los párrafos se mantendrán automáticamente.
+
 ### **Para Títulos Grandes**
 ```
 # Título Principal

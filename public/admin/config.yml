@@ -125,11 +125,12 @@ collections:
           label: "Contenido", 
           name: "body", 
           widget: "markdown",
-          hint: "Escribe o pega tu contenido aquí. Puedes copiar desde Word y se mantendrá el formato (negritas, cursivas, listas, etc.)",
+          hint: "Escribe o pega tu contenido aquí. Puedes copiar desde Word y se mantendrá el formato (negritas, cursivas, listas, etc.). Para saltos de línea: presiona Enter dos veces para crear un nuevo párrafo.",
           modes: ["rich_text"],
           buttons: ["bold", "italic", "code", "link", "heading-one", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"],
           editor_components: [],
-          sanitize_preview: true
+          sanitize_preview: true,
+          minimal: false
         }
 
   # Configuration collection for site settings

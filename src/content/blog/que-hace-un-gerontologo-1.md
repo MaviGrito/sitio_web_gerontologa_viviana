@@ -1,10 +1,8 @@
 ---
 title: ¿QUÉ HACE UN GERONTÓLOGO?
-description: >-
-  El gerontólogo es el profesional que trabaja con personas, familias,
-  cuidadores, instituciones y comunidades a lo largo del curso de vida.
-
-  Desde la evaluación y el diagnóstico, hasta la intervención, el acompañamiento y la coordinación de servicios.
+description: El gerontólogo es el profesional que trabaja con personas,
+  familias, cuidadores, instituciones y comunidades a lo largo del curso de
+  vida.
 publishDate: 2026-01-01
 featuredImage: /uploads/1a.jpg
 gallery:

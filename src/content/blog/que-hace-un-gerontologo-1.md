@@ -6,6 +6,7 @@ description: El gerontólogo es el profesional que trabaja con personas,
 publishDate: 2026-01-01
 featuredImage: /uploads/1a.jpg
 gallery:
+  - /uploads/1a.jpg
   - /uploads/2a.jpg
   - /uploads/3a.jpg
   - /uploads/4a.jpg

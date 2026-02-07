@@ -1,7 +1,7 @@
 ---
 title: VALORACIÓN GERONTOLÓGICA
 description: La base de un acompañamiento integral y humano
-publishDate: 2026-01-01
+publishDate: 2026-01-03
 featuredImage: /uploads/a.jpg
 gallery:
   - /uploads/a.jpg

@@ -89,9 +89,12 @@ collections:
           widget: "select", 
           options: [
             {label: "Gerontología", value: "gerontologia"},
-            {label: "Nutrición", value: "nutricion"},
-            {label: "Ejercicio", value: "ejercicio"},
-            {label: "Salud Mental", value: "salud-mental"}
+            {label: "Familias y Cuidadores", value: "familias-cuidadores"},
+            {label: "Demencias y Alzheimer", value: "demencias-alzheimer"},
+            {label: "Salud y Bienestar", value: "salud-bienestar"},
+            {label: "Envejecimiento y Sociedad", value: "envejecimiento-sociedad"},
+            {label: "Recursos y Herramientas", value: "recursos-herramientas"},
+            {label: "Experiencias y Reflexiones", value: "experiencias-reflexiones"}
           ]
         }
       - {

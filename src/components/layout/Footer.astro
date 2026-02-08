@@ -198,9 +198,15 @@ const socialLinks = [
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
-                <span class="text-light/90 font-body">
+                <a 
+                  href="https://maps.app.goo.gl/WeFPBUF8tkEaMzRB9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-light/90 hover:text-white transition-colors duration-200 font-body"
+                  aria-label={`Ver ubicación en Google Maps: ${SITE_CONFIG.contact.address}`}
+                >
                   {SITE_CONFIG.contact.address}
-                </span>
+                </a>
               </div>
 
               <!-- WhatsApp -->

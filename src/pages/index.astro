@@ -20,9 +20,16 @@ const activeServices = allServices
 // Category labels
 const categoryLabels = {
   'gerontologia': 'Gerontología',
-  'nutricion': 'Nutrición',
-  'ejercicio': 'Ejercicio',
-  'salud-mental': 'Salud Mental'
+  'familias-cuidadores': 'Familias y Cuidadores',
+  'demencias-alzheimer': 'Demencias y Alzheimer',
+  'salud-bienestar': 'Salud y Bienestar',
+  'envejecimiento-sociedad': 'Envejecimiento y Sociedad',
+  'recursos-herramientas': 'Recursos y Herramientas',
+  'experiencias-reflexiones': 'Experiencias y Reflexiones',
+  // Categorías antiguas para compatibilidad
+  'nutricion': 'Familias y Cuidadores',
+  'ejercicio': 'Demencias y Alzheimer',
+  'salud-mental': 'Salud y Bienestar'
 };
 
 // Service icons mapping
@@ -207,6 +214,13 @@ function formatDate(date: Date): string {
                     <div class="mb-3">
                       <span class={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
                         post.data.category === 'gerontologia' ? 'bg-primary/10 text-primary' :
+                        post.data.category === 'familias-cuidadores' ? 'bg-green-100 text-green-800' :
+                        post.data.category === 'demencias-alzheimer' ? 'bg-blue-100 text-blue-800' :
+                        post.data.category === 'salud-bienestar' ? 'bg-purple-100 text-purple-800' :
+                        post.data.category === 'envejecimiento-sociedad' ? 'bg-orange-100 text-orange-800' :
+                        post.data.category === 'recursos-herramientas' ? 'bg-teal-100 text-teal-800' :
+                        post.data.category === 'experiencias-reflexiones' ? 'bg-pink-100 text-pink-800' :
+                        // Categorías antiguas
                         post.data.category === 'nutricion' ? 'bg-green-100 text-green-800' :
                         post.data.category === 'ejercicio' ? 'bg-blue-100 text-blue-800' :
                         post.data.category === 'salud-mental' ? 'bg-purple-100 text-purple-800' :

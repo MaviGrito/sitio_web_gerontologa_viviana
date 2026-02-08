@@ -9,8 +9,20 @@ const blogCollection = defineCollection({
     publishDate: z.date(),
     featuredImage: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),
-    category: z.enum(['gerontologia', 'nutricion', 'ejercicio', 'salud-mental'], {
-      errorMap: () => ({ message: 'Category must be one of: gerontologia, nutricion, ejercicio, salud-mental' })
+    category: z.enum([
+      'gerontologia', 
+      'familias-cuidadores', 
+      'demencias-alzheimer', 
+      'salud-bienestar',
+      'envejecimiento-sociedad',
+      'recursos-herramientas',
+      'experiencias-reflexiones',
+      // Categorías antiguas para compatibilidad
+      'nutricion',
+      'ejercicio',
+      'salud-mental'
+    ], {
+      errorMap: () => ({ message: 'Category must be one of the available categories' })
     }),
     tags: z.array(z.string()).optional().default([]),
     author: z.string().default('Viviana Tonguino Guerrero'),

@@ -13,7 +13,7 @@ gallery:
   - /uploads/7b.jpg
   - /uploads/8b.jpg
   - /uploads/9b.jpg
-category: gerontologia
+category: familias-cuidadores
 tags:
   - gerontólogaenmedellin
   - cuidadores

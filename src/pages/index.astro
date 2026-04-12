@@ -131,7 +131,7 @@ function formatDate(date: Date): string {
     </section>
 
     <!-- Services Preview Section -->
-    <section class="services-preview py-16 relative overflow-hidden" style="background: #ffffff;">
+    <section class="services-preview py-16 relative overflow-hidden" style="background: linear-gradient(180deg, #d4edda 0%, #c3e6cb 100%);">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center mb-12">
           <h2 class="text-3xl lg:text-4xl font-heading font-extrabold text-primary-dark mb-4">
@@ -197,29 +197,42 @@ function formatDate(date: Date): string {
           </p>
         </div>
         <div class="max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl animate-on-scroll">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521!2d-75.5748!3d6.2442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8468b1a7a1f9d485%3A0x8468b1a7a1f9d485!2sViviana+Tonguino+Guerrero+-+Geront%C3%B3loga!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
-            width="100%"
-            height="420"
-            style="border:0; display:block;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Viviana Tonguino Guerrero - Gerontóloga"
-          ></iframe>
+          <!-- Mapa clickeable que abre Google Maps -->
           <a
-            href="https://maps.app.goo.gl/TF9ZYL19dSuEt3ZL8"
+            href="https://www.google.com/maps/place/Geront%C3%B3loga+Viviana+Tonguino+Guerrero/@6.2472116,-75.6814308,10z/data=!4m6!3m5!1s0x41c625af58b7085b:0x3db1a3ddc60a18e0!8m2!3d6.2435291!4d-75.4680945!16s%2Fg%2F11yxzl109z"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center gap-2 bg-primary text-white py-3 font-body font-medium hover:bg-accent transition-colors duration-300"
-            aria-label="Ver perfil de Viviana Tonguino en Google Maps"
+            class="block relative group"
+            aria-label="Ver perfil de Viviana Tonguino Guerrero en Google Maps"
           >
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126289.84!2d-75.6814308!3d6.2472116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41c625af58b7085b%3A0x3db1a3ddc60a18e0!2sGeront%C3%B3loga%20Viviana%20Tonguino%20Guerrero!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+              width="100%"
+              height="420"
+              style="border:0; display:block; pointer-events:none;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Gerontóloga Viviana Tonguino Guerrero - Área Metropolitana del Valle de Aburrá"
+            ></iframe>
+            <!-- Overlay al hacer hover -->
+            <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center">
+              <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white text-primary font-heading font-bold px-5 py-3 rounded-full shadow-lg text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Ver en Google Maps
+              </span>
+            </div>
+          </a>
+          <div class="bg-primary text-white text-center py-3 flex items-center justify-center gap-2 font-body font-medium">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-            Ver perfil en Google Maps
-          </a>
+            Área Metropolitana del Valle de Aburrá — Haz clic para ver en Google Maps
+          </div>
         </div>
       </div>
     </section>

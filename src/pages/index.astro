@@ -131,7 +131,7 @@ function formatDate(date: Date): string {
     </section>
 
     <!-- Services Preview Section -->
-    <section class="services-preview py-16 relative overflow-hidden" style="background: linear-gradient(180deg, #ffffff 0%, #f0faf4 50%, #ffffff 100%);">
+    <section class="services-preview py-16 relative overflow-hidden" style="background: linear-gradient(180deg, #f0faf4 0%, #e8f5e9 100%);">
       <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 20% 50%, #99EBB9 0%, transparent 50%), radial-gradient(circle at 80% 20%, #03A63C22 0%, transparent 40%);"></div>
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center mb-12">
@@ -187,51 +187,41 @@ function formatDate(date: Date): string {
     </section>
 
     <!-- Map Section -->
-    <section class="map-section py-16 bg-white">
+    <section class="map-section py-16" style="background: linear-gradient(180deg, #f0faf4 0%, #e8f5e9 100%);">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-4xl mx-auto text-center mb-10 animate-on-scroll">
           <h2 class="text-3xl lg:text-4xl font-heading font-extrabold text-primary-dark mb-4">
-            Área de Cobertura
+            Encuéntranos
           </h2>
           <p class="text-lg font-body text-gray-600">
             Servicios disponibles en el Área Metropolitana del Valle de Aburrá
           </p>
         </div>
         <a 
-          href="https://maps.app.goo.gl/47YPWtRHbFMU12vT9"
+          href="https://maps.app.goo.gl/TF9ZYL19dSuEt3ZL8"
           target="_blank"
           rel="noopener noreferrer"
           class="block max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 animate-on-scroll"
-          aria-label="Ver ubicación en Google Maps"
+          aria-label="Ver perfil de Viviana Tonguino en Google Maps"
         >
           <div class="relative">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126289.84388985!2d-75.6534!3d6.2442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8468b1a7a1f9d485%3A0x31b010b5e5e5e5e5!2s%C3%81rea+Metropolitana+del+Valle+de+Aburr%C3%A1!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0!2d-75.5748!3d6.2442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8468b1a7a1f9d485%3A0x8468b1a7a1f9d485!2sViviana+Tonguino+Guerrero+-+Geront%C3%B3loga!5e0!3m2!1ses!2sco!4v1700000000000!5m2!1ses!2sco"
               width="100%"
               height="400"
               style="border:0; display:block;"
               allowfullscreen=""
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="Área Metropolitana del Valle de Aburrá - Gerontóloga Viviana Tonguino"
+              title="Viviana Tonguino Guerrero - Gerontóloga en Google Maps"
             ></iframe>
-            <!-- Overlay con CTA -->
-            <div class="absolute inset-0 bg-primary/0 hover:bg-primary/10 transition-colors duration-300 flex items-end justify-center pb-6 pointer-events-none">
-              <span class="bg-white text-primary font-heading font-bold px-6 py-3 rounded-full shadow-lg text-sm flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-                Ver en Google Maps
-              </span>
-            </div>
           </div>
           <div class="bg-primary text-white text-center py-3 flex items-center justify-center gap-2 font-body font-medium hover:bg-accent transition-colors duration-300">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
-            Área Metropolitana del Valle de Aburrá, Antioquia, Colombia — Ver en Google Maps
+            Ver perfil en Google Maps
           </div>
         </a>
       </div>
@@ -239,7 +229,7 @@ function formatDate(date: Date): string {
 
     <!-- Latest Articles Section -->
     {latestPosts.length > 0 && (
-      <section class="latest-articles py-16" style="background: linear-gradient(180deg, #f9fafb 0%, #f0faf4 100%);">
+      <section class="latest-articles py-16" style="background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">

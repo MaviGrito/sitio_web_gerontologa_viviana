@@ -23,11 +23,8 @@ const logoSubtext = SITE_CONFIG.author.headerTitle;
   class={`
     header w-full z-50 transition-all duration-300
     ${fixed ? 'fixed top-0 left-0 right-0' : 'relative'}
-    ${transparent 
-      ? 'bg-transparent' 
-      : 'bg-white shadow-sm border-b border-light/20'
-    }
   `}
+  style="background:#0D2B1D;"
   role="banner"
 >
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,10 +59,10 @@ const logoSubtext = SITE_CONFIG.author.headerTitle;
           
           <!-- Logo Text -->
           <div class="logo-text block">
-            <div class="logo-name text-base sm:text-lg lg:text-xl font-heading font-extrabold text-primary-dark group-hover:text-accent transition-colors duration-200 leading-tight">
+            <div class="logo-name text-base sm:text-lg lg:text-xl font-heading font-extrabold leading-tight" style="color:#6DD17A;">
               {logoText}
             </div>
-            <div class="logo-subtitle text-sm sm:text-sm lg:text-base font-body text-primary/80 group-hover:text-accent/80 transition-colors duration-200 leading-tight">
+            <div class="logo-subtitle text-sm sm:text-sm lg:text-base font-body leading-tight" style="color:rgba(255,255,255,0.75);">
               {logoSubtext}
             </div>
           </div>

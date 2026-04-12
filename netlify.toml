@@ -18,6 +18,12 @@
   to = "/admin/index.html"
   status = 200
 
+# Fallback para rutas de Astro static
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
 [context.production.environment]
   SITE_URL = "https://www.gerontologaviviana.com"
 
@@ -27,9 +33,9 @@
 [context.branch-deploy.environment]
   SITE_URL = "https://$BRANCH--sitiowebgerontologavivianatonguino.netlify.app"
 
-# Headers para evitar caché agresivo
+# Headers para evitar caché agresivo en HTML
 [[headers]]
-  for = "/*"
+  for = "/*.html"
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 

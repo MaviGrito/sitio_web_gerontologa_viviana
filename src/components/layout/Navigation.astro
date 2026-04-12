@@ -39,14 +39,14 @@ function isActiveLink(href: string, currentPath: string): boolean {
       <a
         href={link.href}
         aria-label={link.ariaLabel}
-        class={`
-          nav-link
-          text-base font-body transition-colors duration-200 hover:text-accent
-          ${isActiveLink(link.href, currentPath) 
-            ? 'text-accent font-semibold border-b-2 border-accent' 
-            : 'text-primary-dark hover:text-accent'
-          }
-        `}
+        class={`nav-link text-base font-body transition-colors duration-200 ${
+          isActiveLink(link.href, currentPath)
+            ? 'font-semibold border-b-2'
+            : ''
+        }`}
+        style={isActiveLink(link.href, currentPath)
+          ? 'color:#6DD17A;border-color:#6DD17A;'
+          : 'color:#ffffff;'}
       >
         {link.label}
       </a>
@@ -58,7 +58,8 @@ function isActiveLink(href: string, currentPath: string): boolean {
     <input type="checkbox" id="mobile-menu-checkbox" class="hidden" />
     <label 
       for="mobile-menu-checkbox" 
-      class="flex items-center justify-center w-10 h-10 rounded-md text-primary-dark hover:text-accent hover:bg-light/20 transition-colors duration-200 cursor-pointer"
+      class="flex items-center justify-center w-10 h-10 rounded-md transition-colors duration-200 cursor-pointer"
+      style="color:#ffffff;"
       aria-label="Abrir menú de navegación"
     >
       <!-- Hamburger Icon -->

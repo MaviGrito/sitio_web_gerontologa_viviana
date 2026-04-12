@@ -50,7 +50,7 @@ const services = [
         <div class="max-w-6xl mx-auto">
           <div class="grid gap-12">
             {services.map((service, index) => (
-              <div class={`service-card ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex flex-col lg:flex gap-8 items-center`}>
+              <div id={service.id} class={`service-card ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} flex flex-col lg:flex gap-8 items-center`} style="scroll-margin-top: 80px;">
                 
                 <!-- Service Image -->
                 <div class="service-image flex-1">

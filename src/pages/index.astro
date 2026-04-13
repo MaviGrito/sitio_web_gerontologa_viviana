@@ -91,8 +91,8 @@ function formatDate(date: Date): string {
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div class="intro-image flex justify-center animate-on-scroll">
               <div class="relative">
-                <div class="w-72 h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl" style="border:4px solid #22A84A;">
-                  <img src={SITE_CONFIG.author.photo} alt={`${SITE_CONFIG.author.name}, Gerontóloga`} class="w-full h-full object-cover" loading="eager" />
+                <div class="w-72 h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl">
+                  <img src="/images/doctor-profile.jpeg" alt={`${SITE_CONFIG.author.name}, Gerontóloga`} class="w-full h-full object-cover" loading="eager" />
                 </div>
               </div>
             </div>
@@ -186,12 +186,25 @@ function formatDate(date: Date): string {
     <!-- SOBRE MÍ — verde oscuro -->
     <section class="about-section py-20 relative" style="background:#0D2B1D;">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="max-w-4xl mx-auto animate-on-scroll">
-          <div class="text-center mb-10">
-            <h2 class="text-3xl lg:text-4xl font-heading font-extrabold text-white mb-4">APOYO PROFESIONAL PARA FAMILIAS Y CUIDADORES</h2>
-            <div class="w-16 h-1 rounded-full mx-auto" style="background:#22A84A;"></div>
+        <div class="max-w-6xl mx-auto animate-on-scroll">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Texto -->
+            <div>
+              <h2 class="text-3xl lg:text-4xl font-heading font-extrabold text-white mb-4">APOYO PROFESIONAL PARA FAMILIAS Y CUIDADORES</h2>
+              <div class="w-16 h-1 rounded-full mb-8" style="background:#22A84A;"></div>
+              <p class="text-lg font-body leading-relaxed text-justify" style="color:rgba(255,255,255,0.9);">{SITE_CONFIG.author.bio}</p>
+            </div>
+            <!-- Imagen -->
+            <div class="flex justify-center lg:justify-end">
+              <img
+                src="/images/apoyo-profesional.jpeg"
+                alt="Apoyo profesional para familias y cuidadores"
+                class="rounded-2xl shadow-2xl w-full max-w-md object-cover"
+                style="max-height:480px;"
+                loading="lazy"
+              />
+            </div>
           </div>
-          <p class="text-lg font-body leading-relaxed text-justify" style="color:rgba(255,255,255,0.9);">{SITE_CONFIG.author.bio}</p>
         </div>
       </div>
     </section>

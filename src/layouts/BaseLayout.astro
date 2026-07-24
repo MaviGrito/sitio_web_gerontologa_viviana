@@ -113,6 +113,9 @@ const schema = generateSchemaOrg(schemaType, schemaData);
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     
+    <!-- Slot para preloads específicos de página -->
+    <slot name="head" />
+    
     <!-- Accessibility and Performance -->
     <meta name="theme-color" content="#136038" />
     <meta name="color-scheme" content="light" />

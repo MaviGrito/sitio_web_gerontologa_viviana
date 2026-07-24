@@ -1,8 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/layout/Header.astro';
+import { Image } from 'astro:assets';
 import { SITE_CONFIG } from '../utils/constants';
 import { getCollection } from 'astro:content';
+
+// Importar imágenes locales para que Astro las optimice en build time
+import heroImg from '../assets/images/doctor-fondo.jpg';
+import profileImg from '../assets/images/doctor-profile.jpeg';
+import apoyoImg from '../assets/images/apoyo-profesional.jpeg';
 
 const allPosts = await getCollection('blog');
 const latestPosts = allPosts
@@ -48,10 +54,21 @@ function formatDate(date: Date): string {
   <main class="flex-1">
 
     <!-- HERO -->
-    <section class="hero-section relative overflow-hidden" style="min-height:100vh;display:flex;align-items:center;background-image:url('/images/doctor-fondo.jpg.jpeg');background-size:cover;background-position:center;background-repeat:no-repeat;">
-      <div class="absolute inset-0" style="background:rgba(0,0,0,0.50);"></div>
-      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10 text-center">
-        <div class="max-w-4xl mx-auto hero-content">
+    <section class="hero-section relative overflow-hidden" style="min-height:100vh;display:flex;align-items:center;">
+      <!-- Imagen hero optimizada con máxima prioridad de carga -->
+      <Image
+        src={heroImg}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        style="z-index:0;"
+      />
+      <div class="absolute inset-0" style="background:rgba(0,0,0,0.50);z-index:1;"></div>
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-20 text-center">
+        <div class="max-w-4xl mx-auto hero-content" style="position:relative;z-index:2;">
           <p class="inline-block text-xs font-heading font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-8" style="background:rgba(34,168,74,0.25);color:#6DD17A;border:1px solid rgba(109,209,122,0.5);letter-spacing:0.2em;">
             GERONTOLOGA PROFESIONAL EN CASA · MEDELLÍN
           </p>
@@ -92,7 +109,14 @@ function formatDate(date: Date): string {
             <div class="intro-image flex justify-center animate-on-scroll">
               <div class="relative">
                 <div class="w-72 h-72 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl">
-                  <img src="/images/doctor-profile.jpeg" alt={`${SITE_CONFIG.author.name}, Gerontóloga`} class="w-full h-full object-cover" loading="eager" />
+                  <Image
+                    src={profileImg}
+                    alt={`${SITE_CONFIG.author.name}, Gerontóloga`}
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                    widths={[288, 384]}
+                    sizes="(max-width: 1024px) 288px, 384px"
+                  />
                 </div>
               </div>
             </div>
@@ -196,12 +220,14 @@ function formatDate(date: Date): string {
             </div>
             <!-- Imagen -->
             <div class="flex justify-center lg:justify-end">
-              <img
-                src="/images/apoyo-profesional.jpeg"
+              <Image
+                src={apoyoImg}
                 alt="Apoyo profesional para familias y cuidadores"
                 class="rounded-2xl shadow-2xl w-full max-w-md object-cover"
                 style="max-height:480px;"
                 loading="lazy"
+                widths={[400, 448]}
+                sizes="(max-width: 1024px) 100vw, 448px"
               />
             </div>
           </div>

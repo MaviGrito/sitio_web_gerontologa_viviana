@@ -7,5 +7,11 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [tailwind(), react()],
   site: 'https://www.gerontologaviviana.com',
-  output: 'static'
+  output: 'static',
+  image: {
+    // Usar sharp para optimización de imágenes en build time
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
 });
